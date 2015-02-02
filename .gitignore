@@ -74,7 +74,12 @@ ipch/
 *.psess
 *.vsp
 *.vspx
-
+.EDFPlusCheckerGUI\obj\*
+.EDFPlusCheckerGUI\bin\*
+.EDFPlusCheckerEngine\obj\*
+.EDFPlusCheckerEngine\bin\*
+.NeuroLoogGainLibrary\obj\*
+.NeuroLoogGainLibrary\bin\*
 # TFS 2012 Local Workspace
 $tf/
 

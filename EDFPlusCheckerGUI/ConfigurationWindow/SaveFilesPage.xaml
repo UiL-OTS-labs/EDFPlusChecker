@@ -1,0 +1,84 @@
+﻿<src:ConfigurationPageBase x:Class="EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow.SaveFilesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      xmlns:src="clr-namespace:EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow" Width="594" Height="340" Loaded="SaveFilesPage_Loaded" TextOptions.TextFormattingMode="Display">
+
+    <Grid Width="594">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Output" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <GroupBox Header="Trigger Differences" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,47,0,0" Height="65" Width="574">
+            <Grid Margin="0,10,-2,-8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="58*"/>
+                    <RowDefinition Height="7*"/>
+                </Grid.RowDefinitions>
+                <CheckBox x:Name="ResolveDifferencesCheckBox" Content="Resolve earlier calculated trigger-comparison differences to recording files in memory." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="544" IsChecked="True"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Progress Logging" VerticalAlignment="Top" Margin="10,117,10,0" Height="79">
+            <Grid Margin="0,10,-2,-8">
+                <TextBox x:Name="ApplicationLogPathTextBox" HorizontalAlignment="Left" Height="23" Margin="261,10,0,0" Text="EDFChecker_log.log" VerticalAlignment="Top" Width="262" HorizontalContentAlignment="Right"/>
+                <Label Content="Log file for progress logging of this application:" HorizontalAlignment="Left" Margin="4,8,0,0" VerticalAlignment="Top" Width="256" RenderTransformOrigin="0.5,0.5" HorizontalContentAlignment="Right">
+                    <Label.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-0.076"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Label.RenderTransform>
+                </Label>
+                <Button x:Name="SelectOutputFileButton" Content="..." HorizontalAlignment="Left" Margin="523,10,0,0" VerticalAlignment="Top" Width="31" Click="SelectOutputFileButton_Click" Height="23"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Output Files" HorizontalAlignment="Left" Margin="10,201,0,0" VerticalAlignment="Top" Height="120" Width="574">
+            <Grid Margin="10,10,-2,-8">
+                <CheckBox x:Name="SaveModifiedFilesCheckbox" Content="Save modified files from memory to drive" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Checked="SaveModifiedFilesCheckbox_Checked" Unchecked="SaveModifiedFilesCheckbox_Unchecked"/>
+                <Grid x:Name="OutPutFilesGrid" Height="62" Margin="10,28,0,0" VerticalAlignment="Top">
+                    <Label Content="Output directory for new files:" HorizontalAlignment="Left" Margin="76,10,0,0" VerticalAlignment="Top" Width="162" RenderTransformOrigin="0.932,0.732" HorizontalContentAlignment="Right" Height="22">
+                        <Label.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-0.076"/>
+                                <TranslateTransform X="0.008" Y="-0.094"/>
+                            </TransformGroup>
+                        </Label.RenderTransform>
+                    </Label>
+                    <Button x:Name="OutputDirectoryButton" Content="..." HorizontalAlignment="Left" Margin="503,10,0,0" VerticalAlignment="Top" Width="31" Click="OutputDirectoryButton_Click" Height="23"/>
+                    <Label Content="Prefix to for new files:" HorizontalAlignment="Left" Margin="74,34,0,0" VerticalAlignment="Top" Width="162" RenderTransformOrigin="0.5,0.5" HorizontalContentAlignment="Right" Height="22">
+                        <Label.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-0.076"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Label.RenderTransform>
+                    </Label>
+                    <TextBox x:Name="NewFilesPrefixTextBox" HorizontalAlignment="Left" Height="23" Margin="238,33,0,0" TextWrapping="Wrap" Text="new_" VerticalAlignment="Top" Width="64" HorizontalContentAlignment="Right"/>
+                    <TextBox x:Name="OutputDirectoryTextBox" HorizontalAlignment="Left" Height="23" Margin="238,10,0,0" VerticalAlignment="Top" Width="265" HorizontalContentAlignment="Right" />
+                    <Label Content="oldfilename.edf" HorizontalAlignment="Left" Margin="301,33,0,0" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.309,0.635" Height="22">
+                        <Label.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-0.076"/>
+                                <TranslateTransform X="0.004" Y="0.021"/>
+                            </TransformGroup>
+                        </Label.RenderTransform>
+                    </Label>
+                </Grid>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</src:ConfigurationPageBase>

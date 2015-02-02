@@ -1,0 +1,50 @@
+﻿<src:ConfigurationPageBase x:Class="EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow.ParseTriggerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      xmlns:src="clr-namespace:EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow" Width="594" Height="340" TextOptions.TextFormattingMode="Display">
+
+    <Grid Width="594">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Fix and Extract Triggers" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <GroupBox Header="BioTrace Related" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Height="87" Width="574" Grid.ColumnSpan="2">
+            <Grid Margin="10,10,-2,-8">
+                <Button Content="?" HorizontalAlignment="Left" Margin="538,0,0,0" VerticalAlignment="Top" Width="16" Click="BioTraceInformationButton_Click" Height="57"/>
+                <CheckBox x:Name="FixBioTraceTriggersCheckBox" Content="Fix faulty bytes in BioTrace exported EDF+ files" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Checked="FixBioTraceTriggersCheckBox_Checked" Unchecked="FixBioTraceTriggersCheckBox_Unchecked" Width="275" />
+                <Grid x:Name="BioTraceTriggersGrid" HorizontalAlignment="Left" Margin="0,22,0,0" Width="385" Height="41" VerticalAlignment="Top">
+                    <Label Content="Second Flag:" HorizontalAlignment="Left" Margin="130,11,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="0" Height="22"/>
+                    <TextBox x:Name="BioTraceFixFirstFlagTextBox" HorizontalAlignment="Left" Height="23" Margin="57,11,0,0" TextWrapping="Wrap" Text="Trigger:" VerticalAlignment="Top" Width="58" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="BioTraceFixSecondFlagTextBox" HorizontalAlignment="Left" Margin="198,11,0,0" TextWrapping="Wrap" Text="('" Width="24" Height="23" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                    <Label Content="First Flag:" HorizontalAlignment="Left" Margin="4,11,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="0" Height="22"/>
+                    <Label Content="Replacement Char:" HorizontalAlignment="Left" Margin="238,11,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="0" Height="22"/>
+                    <TextBox x:Name="BioTraceFixReplaceMentTextBox" HorizontalAlignment="Left" Margin="335,10,0,0" TextWrapping="Wrap" Text="t" Width="24" Height="23" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                </Grid>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Recording Files (EDF+) " HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="97" Width="574">
+            <Grid Margin="10,10,-2,-8">
+                <CheckBox x:Name="ParseRecordingTriggersCheckBox" Content="Extract triggers from EDF+ annotations via parsing" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Checked="ParseRecordingTriggersCheckBox_Checked" Unchecked="ParseRecordingTriggersCheckBox_Unchecked"/>
+                <Grid x:Name="ParseRecordingTriggersGrid" HorizontalAlignment="Left" Height="43" Margin="0,28,0,0" VerticalAlignment="Top" Width="284">
+                    <TextBox x:Name="RecordingFilePrefixTextbox" HorizontalAlignment="Left" Height="23" Margin="53,10,0,0" TextWrapping="Wrap" Text="Trigger: " VerticalAlignment="Top" Width="58" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                    <TextBox x:Name="RecordingFilePostfix" HorizontalAlignment="Left" Height="23" Margin="137,10,0,0" TextWrapping="Wrap" Text="('" VerticalAlignment="Top" Width="58" VerticalContentAlignment="Center" RenderTransformOrigin="-5.069,0.391"/>
+                    <Label Content="Prefix:" HorizontalAlignment="Left" Margin="17,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="0" Height="22"/>
+                    <Label Content=":Postfix" HorizontalAlignment="Left" Margin="200,11,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="0" Height="22"/>
+                    <Label Content="22" HorizontalAlignment="Left" Margin="111,10,0,0" VerticalAlignment="Top" FontSize="13" Height="22" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="18"/>
+                </Grid>
+                <Button Content="?" HorizontalAlignment="Left" Margin="538,-8,0,0" VerticalAlignment="Top" Width="16"  Height="79" Click="EDFAnnotationInformationButton_Click"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Log Files (Presentation)" HorizontalAlignment="Left" Margin="10,254,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="54" Width="574">
+            <Label Content="Presentation-Log event codes are ignored if they do not parse into integers. " Margin="10,10,-2,1"/>
+        </GroupBox>
+    </Grid>
+</src:ConfigurationPageBase>
