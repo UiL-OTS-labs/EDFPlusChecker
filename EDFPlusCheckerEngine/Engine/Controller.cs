@@ -36,6 +36,8 @@ namespace EDFPlusChecker
 
         private LinkedList<BaseAction> ActionChain;
 
+        public string ApplicationLogFileName = "EDFPlus_checker_log.log";
+
         #region Action Control
 
         public int AddAction(BaseAction action)
@@ -112,13 +114,15 @@ namespace EDFPlusChecker
             worker.ReportProgress((int)(percentage * 100), message);
         }
 
-        public bool StartExecution(string applicationLogFileName)
+        public bool StartExecution()
         {
-            return StartExecution(applicationLogFileName, new BackgroundWorker());
+            return StartExecution(new BackgroundWorker());
         }
 
-        public bool StartExecution(string applicationLogFileName, BackgroundWorker sendingWorker)
+        public bool StartExecution(BackgroundWorker sendingWorker)
         {
+            string applicationLogFileName = this.ApplicationLogFileName;
+
             int counter = 1;
             string Holder = applicationLogFileName;
             while (File.Exists(Holder))

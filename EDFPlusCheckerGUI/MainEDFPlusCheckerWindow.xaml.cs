@@ -29,8 +29,6 @@ namespace EDFPlusChecker.GraphicalUserInterface
 
         private LinkedList<ConfigurationPageBase> ActionConfigurationChain;
 
-        public string ApplicationLogPath = "EDFPlus_checker_log.log";
-
         public MainEDFPlusCheckerWindow()
         {
             InitializeComponent();
@@ -60,7 +58,7 @@ namespace EDFPlusChecker.GraphicalUserInterface
         {
             BackgroundWorker sendingWorker = (BackgroundWorker)sender;
 
-            e.Cancel = !Engine.StartExecution(ApplicationLogPath, sendingWorker);
+            e.Cancel = !Engine.StartExecution(sendingWorker);
         }
 
         protected void MyBackGroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

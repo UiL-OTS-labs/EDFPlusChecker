@@ -56,6 +56,7 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
                     string Prefix = NewFilesPrefixTextBox.Text;
                     Engine.AddAction(new ActionSaveEDFFile(Engine, SavePath, Prefix));
                 }
+                Engine.ApplicationLogFileName = this.ApplicationLogPathTextBox.Text;
             }
             catch (ActionNotWellConfiguredException e)
             {

@@ -114,28 +114,23 @@ namespace EDFPlusChecker.Engine
         {
             if (!TALRead)
                 ReadTALsToMemory();
-            Trigger[] Result = new Trigger[TAL.Count];
+            List<Trigger> Result = new List<Trigger>();
 
-            int index = 0;
             foreach(EdfPlusAnnotation Annotation in this.TAL)
             {
                 int trigger = -1;
                 if (int.TryParse(Annotation.Annotation, out trigger))
                 {
                     double OnsetTime = Annotation.Onset;
-                    Result[index] = new Trigger(OnsetTime, 0.0, trigger);
-                    index++;
+                    Result.Add(new Trigger(OnsetTime, 0.0, trigger));
                 }
             }
-
-            Trigger[] TruncatedResult = new Trigger[index];
-            Array.Copy(Result, TruncatedResult, TruncatedResult.Length);
-            Array.Sort(TruncatedResult, 
+           Result.Sort(
                 delegate(Trigger t1, Trigger t2) {
                 return t1.OnsetInSeconds.CompareTo(t2.OnsetInSeconds);
             });
 
-            return Result;
+            return Result.ToArray();
         }
 
         public bool CloseFile()

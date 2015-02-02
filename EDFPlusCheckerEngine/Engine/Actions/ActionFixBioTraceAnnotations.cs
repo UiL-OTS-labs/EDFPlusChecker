@@ -22,6 +22,9 @@ namespace EDFPlusChecker.Engine
         {
             Active = true;
 
+            if (Control.EDFPlusHandle.TALRead)
+                throw new ActionCannotDoWhatDoBeDo("TAL are already read in, no use going over the origin buffer! Call open files such that this does not happen!");
+
             UTF8Encoding encoding = new UTF8Encoding();
 
             byte[] FirstFlagArray = encoding.GetBytes(FirstFlag.ToCharArray());
@@ -43,6 +46,7 @@ namespace EDFPlusChecker.Engine
             BinaryWriter bw = new BinaryWriter(ByteStream, encoding);
             bool FirstHit = false;
 
+            int replacements = 0;
             // While loop is simple. See if the bytes match up with the firstflag, then... when armed... 
             // check for the secondflag and if THAT is armed replace the following byte.
             while(ByteStream.Position < ByteStream.Length)
@@ -56,6 +60,7 @@ namespace EDFPlusChecker.Engine
                         {      
                             ByteStream.WriteByte(replacement[0]);     
                             FirstHit = false;
+                            replacements++;
                             SecondCounter = 0;
                             FirstCounter = 0;
                         }
@@ -91,6 +96,13 @@ namespace EDFPlusChecker.Engine
                 
             }
             Active = false;
+
+            if (replacements == 0)
+                throw new ActionCannotDoWhatDoBeDo("Did not fix any of the faulty bytes in the BioTrace Fix. Recheck the flags!");
+
+            Control.EDFPlusHandle.ReadTALsToMemory();
+            EdfPlusAnnotationList list = Control.EDFPlusHandle.TAL;
+
             return "Action: Annotations fixed in " + @Path.GetFileName(Control.EDFPlusHandle.FileName);
         }
 

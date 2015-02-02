@@ -30,6 +30,9 @@ namespace EDFPlusChecker.Engine
             Trigger[] PresentationLogTriggers = Control.PresentationLogHandle.GetTriggers(TriggerLowerLimit, TriggerUpperLimit);
             Trigger[] EDFPlusTriggers = Control.EDFPlusHandle.GetTriggers();
 
+            if (PresentationLogTriggers.Length == 0 || EDFPlusTriggers.Length == 0)
+                throw new ActionCannotDoWhatDoBeDo("Either the Presentation or EDF+ Trigger list came up empty. Check your parsing configuration!");
+
             double[,] TimeStamps; // First row holds Presentation time, second row holds the EDF
             Trigger[] Map = Control.PresentationLogHandle.TimeConvertTriggers(PresentationLogTriggers, EDFPlusTriggers, WindowSize, ErrorMargin, out TimeStamps);
 

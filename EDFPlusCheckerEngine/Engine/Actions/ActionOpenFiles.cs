@@ -59,7 +59,7 @@ namespace EDFPlusChecker.Engine
 
         #region Constructor
 
-        public ActionOpenFiles(Controller cont, bool preReadTALS = true)
+        public ActionOpenFiles(Controller cont, bool preReadTALS = false)
             : base(cont)
         {
             this.PreReadTALS = preReadTALS;
