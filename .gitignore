@@ -80,6 +80,7 @@ ipch/
 .EDFPlusCheckerEngine\bin\*
 .NeuroLoogGainLibrary\obj\*
 .NeuroLoogGainLibrary\bin\*
+
 # TFS 2012 Local Workspace
 $tf/
 
