@@ -3,20 +3,18 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-      xmlns:src="clr-namespace:EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow" Width="594" Height="340" TextOptions.TextFormattingMode="Display">
+      mc:Ignorable="d"
+      xmlns:src="clr-namespace:EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow" TextOptions.TextFormattingMode="Display" Height="400" Width="600">
 
-    <Grid Width="594">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label Content="Fix and Extract Triggers" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <GroupBox Header="BioTrace Related" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Height="87" Width="574" Grid.ColumnSpan="2">
+        <GroupBox Header="BioTrace Related" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Height="87" Width="574">
             <Grid Margin="10,10,-2,-8">
                 <Button Content="?" HorizontalAlignment="Left" Margin="538,0,0,0" VerticalAlignment="Top" Width="16" Click="BioTraceInformationButton_Click" Height="57"/>
                 <CheckBox x:Name="FixBioTraceTriggersCheckBox" Content="Fix faulty bytes in BioTrace exported EDF+ files" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Checked="FixBioTraceTriggersCheckBox_Checked" Unchecked="FixBioTraceTriggersCheckBox_Unchecked" Width="275" />
@@ -30,7 +28,7 @@
                 </Grid>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Recording Files (EDF+) " HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="97" Width="574">
+        <GroupBox Header="Recording Files (EDF+) " HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Height="97" Width="574">
             <Grid Margin="10,10,-2,-8">
                 <CheckBox x:Name="ParseRecordingTriggersCheckBox" Content="Extract triggers from EDF+ annotations via parsing" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Checked="ParseRecordingTriggersCheckBox_Checked" Unchecked="ParseRecordingTriggersCheckBox_Unchecked"/>
                 <Grid x:Name="ParseRecordingTriggersGrid" HorizontalAlignment="Left" Height="43" Margin="0,28,0,0" VerticalAlignment="Top" Width="284">
@@ -43,7 +41,7 @@
                 <Button Content="?" HorizontalAlignment="Left" Margin="538,-8,0,0" VerticalAlignment="Top" Width="16"  Height="79" Click="EDFAnnotationInformationButton_Click"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Log Files (Presentation)" HorizontalAlignment="Left" Margin="10,254,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="54" Width="574">
+        <GroupBox Header="Log Files (Presentation)" Margin="10,254,16,68">
             <Label Content="Presentation-Log event codes are ignored if they do not parse into integers. " Margin="10,10,-2,1"/>
         </GroupBox>
     </Grid>

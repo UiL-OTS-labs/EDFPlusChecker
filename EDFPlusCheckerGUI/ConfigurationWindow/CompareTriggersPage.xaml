@@ -5,18 +5,20 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      xmlns:src="clr-namespace:EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow" Width="594" Height="340" Loaded="CompareTriggersPage_Loaded" TextOptions.TextFormattingMode="Display" >
+      xmlns:src="clr-namespace:EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow" Width="600" Height="400" Loaded="CompareTriggersPage_Loaded" TextOptions.TextFormattingMode="Display" >
 
-    <Grid Width="594">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="26*"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="49*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label Content="Compare Triggers" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <GroupBox x:Name="TimeConversionGroupBox" Header="Time Conversion" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="77" Width="574">
+        <Label Content="Compare Triggers" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Height="32" Width="170"/>
+        <GroupBox x:Name="TimeConversionGroupBox" Header="Time Conversion" Margin="4,10,16,0" Grid.ColumnSpan="2" Grid.Row="1" Height="82" VerticalAlignment="Top">
             <Grid Margin="0,10,-2,-8">
                 <TextBox x:Name="VerificationWindowSizeTextBox" HorizontalAlignment="Left" Height="23" Margin="402,-1,0,0" TextWrapping="Wrap" Text="9" VerticalAlignment="Top" Width="31" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
                 <Label Content="Number of sequential viable triggers to used for verification of time conversion:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="0" Height="22"/>
@@ -26,9 +28,9 @@
                 <Button Content="?" HorizontalAlignment="Left" Margin="548,0,0,0" VerticalAlignment="Top" Width="16" Click="TimeConversionInformationButton_Click" Height="47"/>
             </Grid>
         </GroupBox>
-        <CheckBox x:Name="ComparingTriggersCheckBox" Content="Compare triggers between recording files and log files and make a list of changes to resolve differences. &#xA;Note: no changes are made to the files themselves (yet)." HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" FontSize="12" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Grid.ColumnSpan="2" Height="29" Width="574"/>
-        <GroupBox x:Name="LogFileCompareTriggersGroupBox" Header="Log File (Presentation) Triggers " HorizontalAlignment="Left" Margin="10,197,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="123" Width="574">
-            <Grid Margin="0,10,-2,-8">
+        <CheckBox x:Name="ComparingTriggersCheckBox" Content="Compare triggers between recording files and log files and make a list of changes to resolve differences. &#xA;Note: no changes are made to the files themselves (yet)." HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" FontSize="12" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Grid.ColumnSpan="2" Height="29" Width="574"/>
+        <GroupBox x:Name="LogFileCompareTriggersGroupBox" Header="Log File (Presentation) Triggers " Margin="10,10,10,0" Grid.Row="2" Grid.ColumnSpan="2" Height="122" VerticalAlignment="Top">
+            <Grid Margin="0,10,-2,-8" Height="128" VerticalAlignment="Top">
                 <Label Content="Range (inclusive) of integers to be seen as triggers:" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Width="268"/>
                 <Label Content="Maximum:" HorizontalAlignment="Left" Margin="153,34,0,0" VerticalAlignment="Top" Width="64"/>
                 <Label Content="Minimum:" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="62"/>
@@ -37,16 +39,6 @@
                 <Button Content="?" HorizontalAlignment="Left" Margin="548,10,0,0" VerticalAlignment="Top" Width="16" Click="LogFileTriggerRangeInformationButton_Click" Height="47"/>
                 <CheckBox x:Name="RemoveLogTriggersFromRecCheckBox" Content="Search and remove trigger from recording if log trigger was not found within recording-time range." HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="544" Height="22" IsChecked="True"/>
                 <Button Content="?" HorizontalAlignment="Left" Margin="548,67,0,0" VerticalAlignment="Top" Width="16" Height="22" Click="RemoveLogTriggersFromRecInformationButton_Click"/>
-                <GridSplitter HorizontalAlignment="Left" Height="526" Margin="277,-198,0,-225" VerticalAlignment="Top" Width="3" RenderTransformOrigin="0.5,0.5">
-                    <GridSplitter.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-89.8"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </GridSplitter.RenderTransform>
-                </GridSplitter>
             </Grid>
         </GroupBox>
     </Grid>
