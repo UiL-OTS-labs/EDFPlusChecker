@@ -19,10 +19,10 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="PreviousButton" Content="← Previous" Margin="52,10,52,0" FontSize="14" HorizontalContentAlignment="Center" Click="PreviousButton_Click" MaxHeight="24" MaxWidth="100" MinWidth="100" MinHeight="24" SnapsToDevicePixels="True" Padding="0" VerticalAlignment="Top"/>
-            <Button x:Name="FinishButton" Content="Finish Configuration" Margin="42,10,37,0" FontSize="14" MaxHeight="24" MaxWidth="200" MinWidth="100" MinHeight="24" SnapsToDevicePixels="True" Click="FinishButton_Click" HorizontalContentAlignment="Center" Grid.Column="2" Padding="0" VerticalAlignment="Top"/>
-            <Button x:Name="NextButton" Content="Next →" Margin="67,10,37,0" FontSize="14" HorizontalContentAlignment="Center" Click="NextButton_Click" MaxHeight="24" MaxWidth="100" MinWidth="100" MinHeight="24" SnapsToDevicePixels="True" Grid.Column="2" Padding="0" VerticalAlignment="Top"/>
-            <Button x:Name="CancelButton" Content="Cancel" Margin="51,10,53,12" MaxHeight="24" MaxWidth="100" FontSize="14" MinWidth="100" MinHeight="24" SnapsToDevicePixels="True" Click="CancelButton_Click" HorizontalContentAlignment="Center" Grid.Column="1" Padding="0" VerticalAlignment="Center"/>
+            <Button x:Name="PreviousButton" Content="← Previous" Margin="52,10,52,0" FontSize="14" HorizontalContentAlignment="Center" Click="PreviousButton_Click" MaxHeight="24" MaxWidth="100" MinHeight="24" SnapsToDevicePixels="True" Padding="0,0,2,2" VerticalAlignment="Top"/>
+            <Button x:Name="FinishButton" Content="Finish Configuration" Margin="42,10,37,0" FontSize="14" MaxHeight="24" MaxWidth="200" MinHeight="24" SnapsToDevicePixels="True" Click="FinishButton_Click" HorizontalContentAlignment="Center" Grid.Column="2" Padding="0,0,2,2" VerticalAlignment="Top"/>
+            <Button x:Name="NextButton" Content="Next →" Margin="67,10,37,0" FontSize="14" HorizontalContentAlignment="Center" Click="NextButton_Click" MaxHeight="24" MaxWidth="100" MinHeight="24" SnapsToDevicePixels="True" Grid.Column="2" Padding="0,0,2,2" VerticalAlignment="Top"/>
+            <Button x:Name="CancelButton" Content="Cancel" Margin="51,10,53,12" MaxHeight="24" MaxWidth="100" FontSize="14" MinHeight="24" SnapsToDevicePixels="True" Click="CancelButton_Click" HorizontalContentAlignment="Center" Grid.Column="1" Padding="0,0,2,2" VerticalAlignment="Center"/>
         </Grid>
 
     </Grid>
