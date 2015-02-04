@@ -920,7 +920,7 @@ namespace NeuroLoopGainLibrary.Edf
           DoCloseFile();
         }
       }
-      internal set { _validFormat = value; }
+      protected set { _validFormat = value; }
     }
 
     #endregion public properties

@@ -96,6 +96,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ConfigurationWindow\FixBioTracePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ConfigurationWindow\TEMPLATEPAGE.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -133,6 +137,9 @@
     </Compile>
     <Compile Include="ConfigurationWindow\ActionOverviewPage.xaml.cs">
       <DependentUpon>ActionOverviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationWindow\FixBioTracePage.xaml.cs">
+      <DependentUpon>FixBioTracePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ConfigurationWindow\TEMPLATEPAGE.xaml.cs">
       <DependentUpon>TEMPLATEPAGE.xaml</DependentUpon>

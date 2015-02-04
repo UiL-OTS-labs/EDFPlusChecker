@@ -52,6 +52,7 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
             {
                 Engine.SetFileLists(RecordingFiles, LogFiles);
                 Engine.AddAction(new ActionOpenFiles(Engine));
+
             } catch(ActionNotWellConfiguredException e)
             {
                 possibleErrorMessage = e.Message;

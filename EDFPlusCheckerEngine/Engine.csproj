@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Engine\Actions\ActionExceptions.cs" />
     <Compile Include="Engine\Actions\ActionFixBioTraceAnnotations.cs" />
+    <Compile Include="Engine\Actions\ActionFixBioTraceHeader.cs" />
     <Compile Include="Engine\Actions\ActionParseAnnotations.cs" />
     <Compile Include="Engine\Actions\ActionResolveTriggerDifferences.cs" />
     <Compile Include="Engine\Actions\ActionSaveEDFFile.cs" />

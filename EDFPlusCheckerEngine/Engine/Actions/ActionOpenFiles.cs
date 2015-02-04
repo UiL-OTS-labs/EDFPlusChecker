@@ -32,19 +32,17 @@ namespace EDFPlusChecker.Engine
             if (Control.PresentationLogFileStack.Count > 0)
                 PresentationLogFilename = Control.PresentationLogFileStack.Pop();
 
-            if (File.Exists(EDFFileName))
+            if (File.Exists(@EDFFileName))
             {
-                Control.EDFPlusHandle = new EDFPlusFile(EDFFileName);
+                Control.EDFPlusHandle = new EDFPlusFile(@EDFFileName);
                 if(PreReadTALS) // Sometimes we want to do fixes on the memorystream before we load the model into classes etc.
                     Control.EDFPlusHandle.ReadTALsToMemory();
             }
             else
-                throw new ActionCannotDoWhatDoBeDo("Couldn't find file: " + @EDFFileName);
-            if (!Control.EDFPlusHandle.ValidFormat)
-                throw new ActionCannotDoWhatDoBeDo(@EDFFileName + " is not in a valid EDF+ format! Most commonly this is because of illegal ASCII characters in the header. Only ASCII characters 32-126 are allowed (EDF specifications of 1992).");
+                throw new ActionCannotDoWhatDoBeDo("Couldn't find file: " + @EDFFileName); 
 
-            if (File.Exists(PresentationLogFilename))
-                Control.PresentationLogHandle = new PresentationLogFile(PresentationLogFilename);
+            if (File.Exists(@PresentationLogFilename))
+                Control.PresentationLogHandle = new PresentationLogFile(@PresentationLogFilename);
               
             Active = false;
             

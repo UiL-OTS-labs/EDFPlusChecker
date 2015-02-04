@@ -49,7 +49,7 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
             try
             {
                 if (ResolveDifferencesCheckBox.IsChecked == true)
-                    Engine.AddAction(new ActionResolveTriggerDifferences(Engine, Engine.ErrorMargin));
+                    Engine.AddAction(new ActionResolveTriggerDifferences(Engine, Engine.ErrorMargin, true, true, true));
                 if(SaveModifiedFilesCheckbox.IsChecked == true)
                 {
                     string SavePath = OutputDirectoryTextBox.Text;
@@ -82,7 +82,7 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
             ResolveDifferencesCheckBox.IsEnabled = Engine.HasLogFiles;
             ResolveDifferencesCheckBox.IsChecked = Engine.HasLogFiles;
             SaveModifiedFilesCheckbox.IsChecked = true;
-            OutputDirectoryTextBox.Text = Directory.GetCurrentDirectory();
+            OutputDirectoryTextBox.Text = OutputDirectoryPathDialog.SelectedPath;
         }
 
         private void OutputDirectoryButton_Click(object sender, RoutedEventArgs e)

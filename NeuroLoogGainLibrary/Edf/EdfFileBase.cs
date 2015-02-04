@@ -94,7 +94,7 @@ namespace NeuroLoopGainLibrary.Edf
         }
         return result;
       }
-      internal set
+      protected set
       {
         base.ValidFormat = value;
       }

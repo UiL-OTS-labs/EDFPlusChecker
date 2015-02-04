@@ -31,7 +31,8 @@ namespace EDFPlusChecker.Engine
             Trigger[] EDFPlusTriggers = Control.EDFPlusHandle.GetTriggers();
 
             if (PresentationLogTriggers.Length == 0 || EDFPlusTriggers.Length == 0)
-                throw new ActionCannotDoWhatDoBeDo("Either the Presentation or EDF+ Trigger list came up empty. Check your parsing configuration!");
+                throw new ActionCannotDoWhatDoBeDo("Either the Presentation (#"+PresentationLogTriggers.Length+") or EDF+ Trigger #("+EDFPlusTriggers.Length+") list came up empty. Check your parsing configuration!");
+
 
             double[,] TimeStamps; // First row holds Presentation time, second row holds the EDF
             Trigger[] Map = Control.PresentationLogHandle.TimeConvertTriggers(PresentationLogTriggers, EDFPlusTriggers, WindowSize, ErrorMargin, out TimeStamps);
@@ -51,7 +52,8 @@ namespace EDFPlusChecker.Engine
                         if (Map[i].TriggerNumber != EDFPlusTriggers[j].TriggerNumber)
                         {
                             Trigger[] temp = { EDFPlusTriggers[j], Map[i] };
-                            ReplaceList.Add(temp);
+                            if (!ReplaceList.Contains(temp))
+                                ReplaceList.Add(temp);
                         }
                         Stop = true; //Assuming a single hit...
                         break;
@@ -71,7 +73,8 @@ namespace EDFPlusChecker.Engine
                             CloseMatch = EDFPlusTriggers[j - 1];
 
                         Trigger[] temp = { Map[i], CloseMatch };
-                        AddList.Add(temp);
+                        if (!AddList.Contains(temp))
+                            AddList.Add(temp);
                         Stop = true;
                         break;
                     }
@@ -80,7 +83,8 @@ namespace EDFPlusChecker.Engine
                 if (!Stop) //finally, we couldn't find anything are one of the last triggers where the beyond time cut off does not work:
                 {
                     Trigger[] temp = { Map[i], EDFPlusTriggers[EDFPlusTriggers.Length - 1] };
-                    AddList.Add(temp);
+                    if (!AddList.Contains(temp))
+                        AddList.Add(temp);
                 } 
             }
 
@@ -90,8 +94,11 @@ namespace EDFPlusChecker.Engine
                 {
                     foreach (Trigger RecTrigger in EDFPlusTriggers)
                     {
-                        if(AddTrigger[0].TriggerNumber == RecTrigger.TriggerNumber)
-                            RemoveList.Add(RecTrigger);
+                        if (AddTrigger[0].TriggerNumber == RecTrigger.TriggerNumber)
+                        {
+                            if(!RemoveList.Contains(RecTrigger))
+                                RemoveList.Add(RecTrigger);
+                        }
                     }
                 }
             }
@@ -151,7 +158,7 @@ namespace EDFPlusChecker.Engine
             Control.Log(Environment.NewLine, PrintInConsole);
 
             //fill control variable with the differences
-            Control.DifferenceBetweenFiles = new DifferenceFile(AddList, new List<Trigger[]>(0), ReplaceList);
+            Control.DifferenceBetweenFiles = new DifferenceFile(AddList, RemoveList, ReplaceList);
 
             Active = false;
             return "Action: Compared triggers between " + @Path.GetFileName(Control.EDFPlusHandle.FileName) + " and " + @Path.GetFileName(Control.PresentationLogHandle.FileName) + " with an allowed time difference of: " + ErrorMargin + "s";

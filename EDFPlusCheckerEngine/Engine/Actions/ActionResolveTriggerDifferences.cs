@@ -14,6 +14,10 @@ namespace EDFPlusChecker.Engine
 
         double ErrorMargin;
 
+        bool ReplaceFlag;
+        bool AddFlag;
+        bool RemoveFlag;
+
         #endregion Action Settings
 
         // Starts acting on files
@@ -26,38 +30,44 @@ namespace EDFPlusChecker.Engine
 
             Active = true;
 
-            foreach (Trigger[] trig in Control.DifferenceBetweenFiles.ReplaceList)
-            {
-                if (!Control.EDFPlusHandle.RemoveTrigger(trig[0], ErrorMargin) || !Control.EDFPlusHandle.AddTrigger(trig[1]))
-                    throw new ActionCannotDoWhatDoBeDo("Could not resolve to replace Rec. trigger. " + trig[0].ToString() + " with Log. " + trig[1].ToString());
-            }
+            if(ReplaceFlag)
+                foreach (Trigger[] trig in Control.DifferenceBetweenFiles.ReplaceList)
+                {
+                    if (!Control.EDFPlusHandle.RemoveTrigger(trig[0], ErrorMargin) || !Control.EDFPlusHandle.AddTrigger(trig[1]))
+                        throw new ActionCannotDoWhatDoBeDo("Could not resolve to replace Rec. trigger. " + trig[0].ToString() + " with Log. " + trig[1].ToString());
+                }
 
-            foreach (Trigger[] trig in Control.DifferenceBetweenFiles.RemoveList)
-            {
-                if (!Control.EDFPlusHandle.RemoveTrigger(trig[0], ErrorMargin))
-                    throw new ActionCannotDoWhatDoBeDo("Could not resolve to remove Rec. trigger. " + trig[0].ToString());
-            }
+            if(RemoveFlag)
+                foreach (Trigger trig in Control.DifferenceBetweenFiles.RemoveList)
+                {
+                    if (!Control.EDFPlusHandle.RemoveTrigger(trig, ErrorMargin))
+                        throw new ActionCannotDoWhatDoBeDo("Could not resolve to remove Rec. trigger. " + trig.ToString());
+                }
 
-            foreach (Trigger[] trig in Control.DifferenceBetweenFiles.AddList)
-            {
-                if (!Control.EDFPlusHandle.AddTrigger(trig[0]))
-                    throw new ActionCannotDoWhatDoBeDo("Could not resolve to add trigger. " + trig[0].ToString());
-            }
+            if(AddFlag)
+                foreach (Trigger[] trig in Control.DifferenceBetweenFiles.AddList)
+                {
+                    if (!Control.EDFPlusHandle.AddTrigger(trig[0]))
+                        throw new ActionCannotDoWhatDoBeDo("Could not resolve to add trigger. " + trig[0].ToString());
+                }
 
 
             
 
             Active = false;
 
-            return "Action: Resolved differences in Triggers for " + @Path.GetFileName(Control.EDFPlusHandle.FileName) + "(only in memory, still need to save)";
+            return "Action: Resolved differences in Triggers for " + @Path.GetFileName(Control.EDFPlusHandle.FileName) + "(only in memory, still need to save)\n\t" + (this.AddFlag ? " Added " : " Not Added ") + (this.RemoveFlag ? " Removed " : " Not Removed") + (this.ReplaceFlag ? " Replaced " : "Not Replaced");
         }
 
         #region Constructor
 
-        public ActionResolveTriggerDifferences(Controller cont, double errorMargin)
+        public ActionResolveTriggerDifferences(Controller cont, double errorMargin, bool replaceFlag, bool removeFlag, bool addFlag)
             : base(cont)
         {
             this.ErrorMargin = errorMargin;
+            this.ReplaceFlag = replaceFlag;
+            this.RemoveFlag = removeFlag;
+            this.AddFlag = addFlag;
         }
 
         #endregion Constructor

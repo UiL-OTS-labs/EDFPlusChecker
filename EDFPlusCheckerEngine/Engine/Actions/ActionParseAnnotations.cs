@@ -21,6 +21,10 @@ namespace EDFPlusChecker.Engine
         public override string Act()
         {
             Active = true;
+            bool check = Control.EDFPlusHandle.ValidFormat;
+            if (!Control.EDFPlusHandle.ValidFormat)
+                throw new ActionCannotDoWhatDoBeDo(@Control.EDFPlusHandle.FileName + " is not in a valid EDF+ format! Most commonly this is because of illegal ASCII characters in the header. Only ASCII characters 32-126 are allowed (EDF specifications of 1992).");
+
             //Seems that the autoread function of the library is not alway accurate!
             if (!Control.EDFPlusHandle.TALRead)
                 Control.EDFPlusHandle.ReadTALsToMemory();

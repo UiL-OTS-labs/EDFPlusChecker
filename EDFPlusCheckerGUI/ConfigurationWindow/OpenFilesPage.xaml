@@ -36,8 +36,8 @@
             </Grid>
         </GroupBox>
         <Label Content="Please select the files that are to be opened and compared. Log files are optional." HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="574" FontSize="14"/>
-        <Label x:Name="RecordingFilesTextBoxLines" Content="0" HorizontalAlignment="Right" Margin="0,86,22,227" FontSize="14" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-        <Label x:Name="LogFilesTextBoxLines" Content="0" Margin="0,86,22,228" FontSize="14" HorizontalAlignment="Right" Width="20" Grid.Column="1" RenderTransformOrigin="0.2,0.1" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="RecordingFilesTextBoxLines" Content="0" HorizontalAlignment="Right" Margin="0,86,10,287" FontSize="14" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="LogFilesTextBoxLines" Content="0" Margin="0,86,16,287" FontSize="14" HorizontalAlignment="Right" Width="20" Grid.Column="1" RenderTransformOrigin="0.2,0.1" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="EDF+ Files" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" FontSize="15"/>
         <Label Content="Presentation Log Files" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" FontSize="15" Grid.Column="1"/>
         <Label Content="File Selection" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>

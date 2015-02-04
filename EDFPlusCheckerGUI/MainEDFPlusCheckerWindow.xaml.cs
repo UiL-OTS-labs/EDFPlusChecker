@@ -43,6 +43,7 @@ namespace EDFPlusChecker.GraphicalUserInterface
 
             ActionConfigurationChain = new LinkedList<ConfigurationPageBase>();
             ActionConfigurationChain.AddLast(new OpenFilesPage(Engine));
+            ActionConfigurationChain.AddLast(new FixBioTracePage(Engine));
             ActionConfigurationChain.AddLast(new ParseTriggerPage(Engine));
             ActionConfigurationChain.AddLast(new CompareTriggersPage(Engine));
             ActionConfigurationChain.AddLast(new SaveFilesPage(Engine));
@@ -65,10 +66,12 @@ namespace EDFPlusChecker.GraphicalUserInterface
         {
             if(e.Cancelled)
                 StatusTextBox.Text = "User Canceled";
-            else if(e.Error == null)
-                StatusTextBox.Text = "Done!";   
+            else if (e.Error == null)
+                StatusTextBox.Text = "Done!";
             else
-                StatusTextBox.Text = "An error has occured!";
+            {
+                StatusTextBox.Text = "An error has occured! The background worker has crashed!";
+            }
             ExitButton.IsEnabled = true;
             StartButton.IsEnabled = false;
             CancelButton.Visibility = System.Windows.Visibility.Hidden;

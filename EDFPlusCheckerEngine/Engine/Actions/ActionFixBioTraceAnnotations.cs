@@ -36,7 +36,7 @@ namespace EDFPlusChecker.Engine
             byte[] replacement = encoding.GetBytes(rep, 0, 1);
 
             Stream ByteStream = Control.EDFPlusHandle.MemoryHandle;
-            long dataBlockOffset = 0;// edfHandler.AnnotationSignalOffsetBytes;
+            long dataBlockOffset = Control.EDFPlusHandle.AnnotationSignalOffsetBytes;
             if (ByteStream.Position != dataBlockOffset)
                 ByteStream.Seek(dataBlockOffset, SeekOrigin.Begin);
 

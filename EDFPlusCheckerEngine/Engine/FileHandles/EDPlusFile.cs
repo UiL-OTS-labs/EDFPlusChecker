@@ -110,6 +110,17 @@ namespace EDFPlusChecker.Engine
             PrereadTALs = PrereadTALs.OnOpenFile;
         }
 
+        public void ReReadHeader()
+        {
+            ReadHeaderInfo();
+            ReadSignalInfo();
+
+            this.ValidFormat = (CheckHeader() && CheckSignals());
+
+            CalculateDataBlockSize();
+            DoDataBufferSizeChanged();
+        }
+
         public Trigger[] GetTriggers()
         {
             if (!TALRead)
