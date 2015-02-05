@@ -26,7 +26,7 @@
         <GroupBox Header="EDF+ Annotations" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="87" Width="574" Grid.ColumnSpan="2" Grid.Row="1">
             <Grid Margin="10,10,-2,-8">
                 <Button x:Name="FixBioTraceAnnotationInformationButton" Content="?" HorizontalAlignment="Left" Margin="538,0,0,0" VerticalAlignment="Top" Width="16" Click="FixBioTraceAnnotationInformationButton_Click" Height="57"/>
-                <CheckBox x:Name="FixBioTraceTriggersCheckBox" Content="Fix faulty bytes in the annotations of BioTrace exported EDF+ files" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Checked="FixBioTraceTriggersCheckBox_Checked" Unchecked="FixBioTraceTriggersCheckBox_Unchecked" Width="275" />
+                <CheckBox x:Name="FixBioTraceTriggersCheckBox" Content="Fix faulty bytes in the annotations of BioTrace exported EDF+ files" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Checked="FixBioTraceTriggersCheckBox_Checked" Unchecked="FixBioTraceTriggersCheckBox_Unchecked" Width="341" />
                 <Grid x:Name="BioTraceTriggersGrid" HorizontalAlignment="Left" Margin="0,22,0,0" Width="385" Height="41" VerticalAlignment="Top">
                     <Label Content="Second Flag:" HorizontalAlignment="Left" Margin="130,11,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="0" Height="22"/>
                     <TextBox x:Name="BioTraceFixFirstFlagTextBox" HorizontalAlignment="Left" Height="23" Margin="57,11,0,0" TextWrapping="Wrap" Text="Trigger:" VerticalAlignment="Top" Width="58" VerticalContentAlignment="Center"/>

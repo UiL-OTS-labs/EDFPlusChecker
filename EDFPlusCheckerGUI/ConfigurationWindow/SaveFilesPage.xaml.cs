@@ -49,7 +49,15 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
             try
             {
                 if (ResolveDifferencesCheckBox.IsChecked == true)
-                    Engine.AddAction(new ActionResolveTriggerDifferences(Engine, Engine.ErrorMargin, true, true, true));
+                {
+                    bool AddFlag = AddTriggersFlagCheckBox.IsChecked == true;
+                    bool RemoveFlag = RemoveTriggersFlagCheckBox.IsChecked == true;
+                    bool ReplaceFlag = ReplaceTriggersFlagCheckBox.IsChecked == true;
+
+                    Engine.AddAction(new ActionResolveTriggerDifferences(Engine, Engine.ErrorMargin, ReplaceFlag, RemoveFlag, AddFlag));
+
+                }
+                    
                 if(SaveModifiedFilesCheckbox.IsChecked == true)
                 {
                     string SavePath = OutputDirectoryTextBox.Text;
@@ -68,7 +76,15 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
 
         public override void UndoConfigureEngine()
         {
-            Engine.RemovePreviousAction();
+            if (ResolveDifferencesCheckBox.IsChecked == true)
+            {
+                Engine.RemovePreviousAction();
+            }
+
+            if (SaveModifiedFilesCheckbox.IsChecked == true)
+            {
+                Engine.RemovePreviousAction();
+            }
         }
 
         private void SelectOutputFileButton_Click(object sender, RoutedEventArgs e)
@@ -101,6 +117,15 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
         {
             OutPutFilesGrid.IsEnabled = true;
         }
-        
+
+        private void ResolveDifferencesCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            ResolveDetailGroupBox.IsEnabled = true;
+        }
+
+        private void ResolveDifferencesCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ResolveDetailGroupBox.IsEnabled = false;
+        }
     }
 }
