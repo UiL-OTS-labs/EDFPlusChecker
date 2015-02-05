@@ -224,6 +224,12 @@ namespace EDFPlusChecker.Engine
                         DataList[col].Add(field);
                         col++;
                     }
+
+                    for (; col < Headers.Count; col++)
+                    {
+                        DataList[col].Add("0");
+                    }
+
                     col = 0;
                 }
                 Data = DataList;
