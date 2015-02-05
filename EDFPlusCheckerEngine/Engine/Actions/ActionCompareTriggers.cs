@@ -49,14 +49,14 @@ namespace EDFPlusChecker.Engine
                     //Right on the trigger
                     if(Map[i].SameTiming(EDFPlusTriggers[j], ErrorMargin))
                     {
-                        if (Map[i].TriggerNumber != EDFPlusTriggers[j].TriggerNumber)
+                        if (Map[i].TriggerNumber != EDFPlusTriggers[j].TriggerNumber)//but not the same trigger....
                         {
                             Trigger[] temp = { EDFPlusTriggers[j], Map[i] };
                             if (!ReplaceList.Contains(temp))
                                 ReplaceList.Add(temp);
                         }
                         Stop = true; //Assuming a single hit...
-                        break;
+                        break; //exit
                     }
 
                     //beyond the trigger.
@@ -80,7 +80,7 @@ namespace EDFPlusChecker.Engine
                     }
                 }
 
-                if (!Stop) //finally, we couldn't find anything are one of the last triggers where the beyond time cut off does not work:
+                if (!Stop) //at the final boundry
                 {
                     Trigger[] temp = { Map[i], EDFPlusTriggers[EDFPlusTriggers.Length - 1] };
                     if (!AddList.Contains(temp))
@@ -90,14 +90,28 @@ namespace EDFPlusChecker.Engine
 
             if(RemoveRecTriggerPriorToPlace) // just remove all occurances!
             {
-                foreach (Trigger[] AddTrigger in AddList)
+                foreach (Trigger[] AddTrigger in AddList) //if you mean to add it.
                 {
                     foreach (Trigger RecTrigger in EDFPlusTriggers)
                     {
                         if (AddTrigger[0].TriggerNumber == RecTrigger.TriggerNumber)
                         {
                             if(!RemoveList.Contains(RecTrigger))
-                                RemoveList.Add(RecTrigger);
+                            {
+                                bool ContainedInReplace = false;
+                                foreach(Trigger[] ReplaceItem in ReplaceList)
+                                {
+                                    if (ReplaceItem[0].Equals(RecTrigger))
+                                    {
+                                        ContainedInReplace = true;
+                                        break;
+                                    }
+                                }
+                                if(!ContainedInReplace)
+                                    RemoveList.Add(RecTrigger);
+
+                            }
+                                
                         }
                     }
                 }
@@ -129,37 +143,39 @@ namespace EDFPlusChecker.Engine
             //    Control.Log(Dif.ToString());   
             //}
 
-            bool PrintInConsole = false;
+            bool PrintInConsole = true;
+            lock (Control)
+            {
+                //Report the comparison!
+                Control.Log("Statistics on: \t" + @Path.GetFileName(Control.EDFPlusHandle.FileName), PrintInConsole);
+                Control.Log("Onset of triggers used for time conversion: ", PrintInConsole);
+                Control.Log("EDF File Recording:\t" + Math.Round(TimeStamps[0, 0], 3) + "s and " + Math.Round(TimeStamps[0, 1], 3) + "s", PrintInConsole);
+                Control.Log("Presentation Log:\t" + Math.Round(TimeStamps[1, 0], 3) + "s and " + Math.Round(TimeStamps[1, 1], 3) + "s", PrintInConsole);
+                Control.Log("Average Trigger-time difference: " + Math.Round(OnSetDiff.Average(), 5) + "s\t range: " + Math.Round(OnSetDiff.Min(), 5) + "s to " + Math.Round(OnSetDiff.Max(), 5) + "s (Note: These are approximate statistics) ", PrintInConsole);
+                Control.Log("Used an error margin of: " + this.ErrorMargin + "s");
+                Control.Log(Environment.NewLine + "Log. Triggers to be Added: ", PrintInConsole);
+                if (AddList.Count == 0)
+                    Control.Log("None", PrintInConsole);
+                for (int i = 0; i < AddList.Count; i++)
+                    Control.Log("Log. " + AddList[i][0].ToString() + "\t closest match: [Rec. " + AddList[i][1].ToString() + "]\tdiff: " + Math.Round(Math.Abs(AddList[i][1].ApproximateOnsetInSeconds - AddList[i][0].ApproximateOnsetInSeconds), 3) + "s", PrintInConsole);
 
-            //Report the comparison!
-            Control.Log("Statistics on: \t" + @Path.GetFileName(Control.EDFPlusHandle.FileName), PrintInConsole);
-            Control.Log("Onset of triggers used for time conversion: ", PrintInConsole);
-            Control.Log("EDF File Recording:\t" + Math.Round(TimeStamps[0, 0], 3) + "s and " + Math.Round(TimeStamps[0, 1], 3) + "s", PrintInConsole);
-            Control.Log("Presentation Log:\t" + Math.Round(TimeStamps[1, 0], 3) + "s and " + Math.Round(TimeStamps[1, 1], 3) + "s", PrintInConsole);
-            Control.Log("Average Trigger-time difference: " + Math.Round(OnSetDiff.Average(),5) + "s\t range: " + Math.Round(OnSetDiff.Min(),5) + "s to " + Math.Round(OnSetDiff.Max(),5) +  "s (Note: These are approximate statistics) ", PrintInConsole);
-            
-            Control.Log(Environment.NewLine + "Log. Triggers to be Added: ", PrintInConsole);
-            if (AddList.Count == 0)
-                Control.Log("None", PrintInConsole);
-            for (int i = 0; i < AddList.Count; i++)
-                Control.Log("Log. " + AddList[i][0].ToString() + "\t closest match: [Rec. " + AddList[i][1].ToString() + "]\tdiff: " + Math.Round(Math.Abs(AddList[i][1].ApproximateOnsetInSeconds - AddList[i][0].ApproximateOnsetInSeconds), 3) + "s", PrintInConsole);
-            
-            Control.Log(Environment.NewLine + "Rec. Triggers to be Removed: ", PrintInConsole);
-            if (RemoveList.Count == 0)
-                Control.Log("None", PrintInConsole);
-            for (int i = 0; i < RemoveList.Count; i++)
-                Control.Log("Rec. " + RemoveList[i].ToString());
-            
-            Control.Log(Environment.NewLine + "Rec. Triggers to be Replaced: ", PrintInConsole);
-            if (ReplaceList.Count == 0)
-                Control.Log("None", PrintInConsole);
-            for (int i = 0; i < ReplaceList.Count; i++)
-                Control.Log("Rec. " + ReplaceList[i][0].ToString() + " by Log. " + ReplaceList[i][1].ToString(), PrintInConsole);
-            Control.Log(Environment.NewLine, PrintInConsole);
+                Control.Log(Environment.NewLine + "Rec. Triggers to be Removed: ", PrintInConsole);
+                if (RemoveList.Count == 0)
+                    Control.Log("None", PrintInConsole);
+                for (int i = 0; i < RemoveList.Count; i++)
+                    Control.Log("Rec. " + RemoveList[i].ToString());
 
-            //fill control variable with the differences
-            Control.DifferenceBetweenFiles = new DifferenceFile(AddList, RemoveList, ReplaceList);
+                Control.Log(Environment.NewLine + "Rec. Triggers to be Replaced: ", PrintInConsole);
+                if (ReplaceList.Count == 0)
+                    Control.Log("None", PrintInConsole);
+                for (int i = 0; i < ReplaceList.Count; i++)
+                    Control.Log("Rec. " + ReplaceList[i][0].ToString() + " by Log. " + ReplaceList[i][1].ToString() + "\tdiff: " + Math.Round(Math.Abs(ReplaceList[i][1].ApproximateOnsetInSeconds - ReplaceList[i][0].ApproximateOnsetInSeconds), 3) + "s", PrintInConsole);
+                Control.Log(Environment.NewLine, PrintInConsole);
 
+                //fill control variable with the differences
+                Control.DifferenceBetweenFiles = new DifferenceFile(AddList, RemoveList, ReplaceList);
+            }             
+                     
             Active = false;
             return "Action: Compared triggers between " + @Path.GetFileName(Control.EDFPlusHandle.FileName) + " and " + @Path.GetFileName(Control.PresentationLogHandle.FileName) + " with an allowed time difference of: " + ErrorMargin + "s";
         }

@@ -95,9 +95,11 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
 
         private void SaveFilesPage_Loaded(object sender, RoutedEventArgs e)
         {
+            ResolveDetailGroupBox.IsEnabled = Engine.HasLogFiles;
+            ResolveDifferencesCheckBox.IsChecked= Engine.HasLogFiles;
             ResolveDifferencesCheckBox.IsEnabled = Engine.HasLogFiles;
-            ResolveDifferencesCheckBox.IsChecked = Engine.HasLogFiles;
             SaveModifiedFilesCheckbox.IsChecked = true;
+            
             OutputDirectoryTextBox.Text = OutputDirectoryPathDialog.SelectedPath;
         }
 

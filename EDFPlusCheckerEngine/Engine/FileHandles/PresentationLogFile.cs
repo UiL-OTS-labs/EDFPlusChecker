@@ -37,6 +37,10 @@ namespace EDFPlusChecker.Engine
            string[] CodeColumn = GetDataColumn("Code");
            string[] TimingColumn = GetDataColumn("Time");
            string[] UncertaintyColumn = GetDataColumn("Uncertainty");
+           
+           if(CodeColumn.Length != TimingColumn.Length || TimingColumn.Length != UncertaintyColumn.Length)
+                throw new ActionCannotDoWhatDoBeDo("Something fishy going on with the length of the columns in the Presentation file " + this.FileName);
+
            List<Trigger> Result = new List<Trigger>(CodeColumn.Length);
 
            for (int i = 0; i < CodeColumn.Length; i++)
@@ -46,8 +50,10 @@ namespace EDFPlusChecker.Engine
                {
                    int OnsetTimeOneTenth = -9999;
                    int UncertaintyOneTenth = -9999;
+
                    if (!int.TryParse(TimingColumn[i], out OnsetTimeOneTenth) || !int.TryParse(UncertaintyColumn[i], out UncertaintyOneTenth))
                        throw new ActionCannotDoWhatDoBeDo("Something fishy going on with PresentationLog OnsetTime (TIME column)");
+
                    double OnsetTime = ((double) OnsetTimeOneTenth)/10000;
                    double Uncertainty = ((double) UncertaintyOneTenth)/10000;
                    Result.Add(new Trigger(OnsetTime, Uncertainty, Trigger));

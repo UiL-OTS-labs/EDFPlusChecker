@@ -58,7 +58,6 @@ namespace EDFPlusChecker.GraphicalUserInterface
         protected void MyBackGroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker sendingWorker = (BackgroundWorker)sender;
-
             e.Cancel = !Engine.StartExecution(sendingWorker);
         }
 
@@ -71,6 +70,7 @@ namespace EDFPlusChecker.GraphicalUserInterface
             else
             {
                 StatusTextBox.Text = "An error has occured! The background worker has crashed!";
+                throw new Exception("The background worker has crashed!", e.Error);
             }
             ExitButton.IsEnabled = true;
             StartButton.IsEnabled = false;
