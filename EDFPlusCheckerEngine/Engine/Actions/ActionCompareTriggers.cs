@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NeuroLoopGainLibrary.Edf;
 using System.IO;
-
+using System.Diagnostics;
 namespace EDFPlusChecker.Engine
 {
     public class ActionCompareTriggers : BaseAction
@@ -157,19 +157,19 @@ namespace EDFPlusChecker.Engine
                 if (AddList.Count == 0)
                     Control.Log("None", PrintInConsole);
                 for (int i = 0; i < AddList.Count; i++)
-                    Control.Log("Log. " + AddList[i][0].ToString() + "\t closest match: [Rec. " + AddList[i][1].ToString() + "]\tdiff: " + Math.Round(Math.Abs(AddList[i][1].ApproximateOnsetInSeconds - AddList[i][0].ApproximateOnsetInSeconds), 3) + "s", PrintInConsole);
+                    Control.Log(i+1 + ": Log. " + AddList[i][0].ToString() + "\t closest match: [Rec. " + AddList[i][1].ToString() + "]\tdiff: " + Math.Round(Math.Abs(AddList[i][1].ApproximateOnsetInSeconds - AddList[i][0].ApproximateOnsetInSeconds), 3) + "s", PrintInConsole);
 
                 Control.Log(Environment.NewLine + "Rec. Triggers to be Removed: ", PrintInConsole);
                 if (RemoveList.Count == 0)
                     Control.Log("None", PrintInConsole);
                 for (int i = 0; i < RemoveList.Count; i++)
-                    Control.Log("Rec. " + RemoveList[i].ToString());
+                    Control.Log(i+1 + ": Rec. " + RemoveList[i].ToString());
 
                 Control.Log(Environment.NewLine + "Rec. Triggers to be Replaced: ", PrintInConsole);
                 if (ReplaceList.Count == 0)
                     Control.Log("None", PrintInConsole);
                 for (int i = 0; i < ReplaceList.Count; i++)
-                    Control.Log("Rec. " + ReplaceList[i][0].ToString() + " by Log. " + ReplaceList[i][1].ToString() + "\tdiff: " + Math.Round(Math.Abs(ReplaceList[i][1].ApproximateOnsetInSeconds - ReplaceList[i][0].ApproximateOnsetInSeconds), 3) + "s", PrintInConsole);
+                    Control.Log(i+1 + ": Rec. " + ReplaceList[i][0].ToString() + " by Log. " + ReplaceList[i][1].ToString() + "\tdiff: " + Math.Round(Math.Abs(ReplaceList[i][1].ApproximateOnsetInSeconds - ReplaceList[i][0].ApproximateOnsetInSeconds), 3) + "s", PrintInConsole);
                 Control.Log(Environment.NewLine, PrintInConsole);
 
                 //fill control variable with the differences

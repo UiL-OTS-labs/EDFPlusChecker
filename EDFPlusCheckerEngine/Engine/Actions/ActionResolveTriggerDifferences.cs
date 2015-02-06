@@ -51,9 +51,6 @@ namespace EDFPlusChecker.Engine
                         throw new ActionCannotDoWhatDoBeDo("Could not resolve to add trigger. " + trig[0].ToString());
                 }
 
-
-            
-
             Active = false;
 
             return "Action: Resolved differences in Triggers for " + @Path.GetFileName(Control.EDFPlusHandle.FileName) + "(only in memory, still need to save)\n\t" + (this.AddFlag ? " Added " : " Not Added ") + (this.RemoveFlag ? " Removed " : " Not Removed") + (this.ReplaceFlag ? " Replaced " : "Not Replaced");

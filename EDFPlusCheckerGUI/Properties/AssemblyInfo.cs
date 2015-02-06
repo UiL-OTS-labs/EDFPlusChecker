@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("EDF+ Checker")]
 [assembly: AssemblyDescription("Tool build to check EDF+ files. It allows for an action-chain configuration. Each action is then performed on file pairs to repair, check, and/or fix the files. Meant to work with EDF+ and Presentation-log files.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("CPA.vanRun@uu.nl (UiL-OTS, Utrecht University)")]
+[assembly: AssemblyCompany("C.P.A.vanRun@uu.nl (UiL-OTS, Utrecht University)")]
 [assembly: AssemblyProduct("EDF+ Checker")]
-[assembly: AssemblyCopyright("GNU General Public License (see http://www.gnu.org/licenses/gpl-2.0.html)")]
+[assembly: AssemblyCopyright("MIT License")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -51,6 +51,6 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2.0.0")]
-[assembly: AssemblyFileVersion("1.2.0.0")]
+[assembly: AssemblyVersion("1.3.0.0")]
+[assembly: AssemblyFileVersion("1.3.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("")]

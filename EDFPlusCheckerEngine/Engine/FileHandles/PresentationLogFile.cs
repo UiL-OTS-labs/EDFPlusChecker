@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic.FileIO;
+using System.Diagnostics;
 
 namespace EDFPlusChecker.Engine
 {
@@ -150,7 +151,7 @@ namespace EDFPlusChecker.Engine
                     {
                         double TooNewTime = MapTimePoint(WindowFrom[i].OnsetInSeconds, timeStamps);
                         if (
-                             TooNewTime > (WindowToo[i].OnsetInSeconds + errorMargin)
+                             TooNewTime > (WindowToo[i].OnsetInSeconds + WindowFrom[i].UncertaintyInSeconds + errorMargin)
                               &&
                               TooNewTime < (WindowToo[i].OnsetInSeconds - errorMargin)
                             )
