@@ -30,8 +30,7 @@
                             <RowDefinition Height="9*"/>
                         </Grid.RowDefinitions>
                         <CheckBox x:Name="AddTriggersFlagCheckBox" Content="Add Triggers to EDF+ file" HorizontalAlignment="Left" Margin="41,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                        <CheckBox x:Name="ReplaceTriggersFlagCheckBox" Content="Replace triggers in EDF+ file" HorizontalAlignment="Left" Margin="339,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                        <CheckBox x:Name="RemoveTriggersFlagCheckBox" Content="Remove triggers in EDF+ file" HorizontalAlignment="Left" Margin="182,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                        <CheckBox x:Name="RemoveTriggersFlagCheckBox" Content="Remove triggers in EDF+ file" HorizontalAlignment="Left" Margin="230,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
                     </Grid>
                 </GroupBox>
             </Grid>
@@ -45,8 +44,8 @@
         </GroupBox>
         <GroupBox Header="Output Files" HorizontalAlignment="Left" Margin="10,219,0,0" VerticalAlignment="Top" Height="120" Width="574" Grid.Row="1">
             <Grid Margin="10,10,-2,-8">
-                <CheckBox x:Name="SaveModifiedFilesCheckbox" Content="Save modified files from memory to drive" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Checked="SaveModifiedFilesCheckbox_Checked" Unchecked="SaveModifiedFilesCheckbox_Unchecked"/>
-                <Grid x:Name="OutPutFilesGrid" Height="62" Margin="10,28,0,0" VerticalAlignment="Top">
+                <CheckBox x:Name="SaveModifiedFilesCheckbox" Content="Save modified files from MEMORY to DRIVE." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Checked="SaveModifiedFilesCheckbox_Checked" Unchecked="SaveModifiedFilesCheckbox_Unchecked"/>
+                <Grid x:Name="OutPutFilesGrid" Height="62" Margin="10,28,0,0" VerticalAlignment="Top" IsEnabled="False">
                     <Label Content="Output directory for new files:" HorizontalAlignment="Left" Margin="76,10,0,0" VerticalAlignment="Top" Width="162" HorizontalContentAlignment="Right" Height="22"/>
                     <Button x:Name="OutputDirectoryButton" Content="..." HorizontalAlignment="Left" Margin="503,10,0,0" VerticalAlignment="Top" Width="31" Click="OutputDirectoryButton_Click" Height="23"/>
                     <Label Content="Prefix to for new files:" HorizontalAlignment="Left" Margin="74,34,0,0" VerticalAlignment="Top" Width="162" RenderTransformOrigin="0.5,0.5" HorizontalContentAlignment="Right" Height="22"/>

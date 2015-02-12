@@ -30,10 +30,11 @@ namespace EDFPlusChecker.Engine
 
         public Trigger[] GetTriggers()
         {
-            return GetTriggers(0, 256);
+            int[] temp = new int[0];
+            return GetTriggers(temp, 0, 256);
         }
 
-        public Trigger[] GetTriggers(int lowerTriggerLimit = 0, int upperTriggerLimit = 255)
+        public Trigger[] GetTriggers( int[] triggersToIgnore, int lowerTriggerLimit = 0, int upperTriggerLimit = 255)
         {
            string[] CodeColumn = GetDataColumn("Code");
            string[] TimingColumn = GetDataColumn("Time");
@@ -46,8 +47,8 @@ namespace EDFPlusChecker.Engine
 
            for (int i = 0; i < CodeColumn.Length; i++)
            {
-               int Trigger = -1;
-               if (int.TryParse(CodeColumn[i], out Trigger) && Trigger <= upperTriggerLimit && Trigger >= lowerTriggerLimit)
+               int TriggerNumber = -1;
+               if (int.TryParse(CodeColumn[i], out TriggerNumber) && TriggerNumber <= upperTriggerLimit && TriggerNumber >= lowerTriggerLimit && !triggersToIgnore.Contains(TriggerNumber))
                {
                    int OnsetTimeOneTenth = -9999;
                    int UncertaintyOneTenth = -9999;
@@ -57,7 +58,7 @@ namespace EDFPlusChecker.Engine
 
                    double OnsetTime = ((double) OnsetTimeOneTenth)/10000;
                    double Uncertainty = ((double) UncertaintyOneTenth)/10000;
-                   Result.Add(new Trigger(OnsetTime, Uncertainty, Trigger));
+                   Result.Add(new Trigger(OnsetTime, Uncertainty, TriggerNumber));
                }
            }
            return Result.ToArray<Trigger>();

@@ -17,6 +17,8 @@ namespace EDFPlusChecker.Engine
         public int WindowSize;
         public int TriggerUpperLimit;
         public int TriggerLowerLimit;
+        public int[] TriggersToIgnore;
+ 
         public bool RemoveRecTriggerPriorToPlace;
 
         #endregion Action Settings
@@ -27,7 +29,7 @@ namespace EDFPlusChecker.Engine
 
             Control.ErrorMargin = this.ErrorMargin;
 
-            Trigger[] PresentationLogTriggers = Control.PresentationLogHandle.GetTriggers(TriggerLowerLimit, TriggerUpperLimit);
+            Trigger[] PresentationLogTriggers = Control.PresentationLogHandle.GetTriggers(TriggersToIgnore, TriggerLowerLimit, TriggerUpperLimit);
             Trigger[] EDFPlusTriggers = Control.EDFPlusHandle.GetTriggers();
 
             if (PresentationLogTriggers.Length == 0 || EDFPlusTriggers.Length == 0)
@@ -153,13 +155,13 @@ namespace EDFPlusChecker.Engine
                 Control.Log("Presentation Log:\t" + Math.Round(TimeStamps[1, 0], 3) + "s and " + Math.Round(TimeStamps[1, 1], 3) + "s", PrintInConsole);
                 Control.Log("Average Trigger-time difference: " + Math.Round(OnSetDiff.Average(), 5) + "s\t range: " + Math.Round(OnSetDiff.Min(), 5) + "s to " + Math.Round(OnSetDiff.Max(), 5) + "s (Note: These are approximate statistics) ", PrintInConsole);
                 Control.Log("Used an error margin of: " + this.ErrorMargin + "s");
-                Control.Log(Environment.NewLine + "Log. Triggers to be Added: ", PrintInConsole);
+                Control.Log(Environment.NewLine + "Log. Triggers to be DIRECTLY Added: ", PrintInConsole);
                 if (AddList.Count == 0)
                     Control.Log("None", PrintInConsole);
                 for (int i = 0; i < AddList.Count; i++)
                     Control.Log(i+1 + ": Log. " + AddList[i][0].ToString() + "\t closest match: [Rec. " + AddList[i][1].ToString() + "]\tdiff: " + Math.Round(Math.Abs(AddList[i][1].ApproximateOnsetInSeconds - AddList[i][0].ApproximateOnsetInSeconds), 3) + "s", PrintInConsole);
 
-                Control.Log(Environment.NewLine + "Rec. Triggers to be Removed: ", PrintInConsole);
+                Control.Log(Environment.NewLine + "Rec. Triggers to be DIRECTLY Removed: ", PrintInConsole);
                 if (RemoveList.Count == 0)
                     Control.Log("None", PrintInConsole);
                 for (int i = 0; i < RemoveList.Count; i++)
@@ -169,7 +171,7 @@ namespace EDFPlusChecker.Engine
                 if (ReplaceList.Count == 0)
                     Control.Log("None", PrintInConsole);
                 for (int i = 0; i < ReplaceList.Count; i++)
-                    Control.Log(i+1 + ": Rec. " + ReplaceList[i][0].ToString() + " by Log. " + ReplaceList[i][1].ToString() + "\tdiff: " + Math.Round(Math.Abs(ReplaceList[i][1].ApproximateOnsetInSeconds - ReplaceList[i][0].ApproximateOnsetInSeconds), 3) + "s", PrintInConsole);
+                    Control.Log(i+1 + ": REPLACE (remove) Rec. " + ReplaceList[i][0].ToString() + " WITH (add) Log. " + ReplaceList[i][1].ToString() + "\tdiff: " + Math.Round(Math.Abs(ReplaceList[i][1].ApproximateOnsetInSeconds - ReplaceList[i][0].ApproximateOnsetInSeconds), 3) + "s", PrintInConsole);
                 Control.Log(Environment.NewLine, PrintInConsole);
 
                 //fill control variable with the differences
@@ -177,7 +179,15 @@ namespace EDFPlusChecker.Engine
             }             
                      
             Active = false;
-            return "Action: Compared triggers between " + @Path.GetFileName(Control.EDFPlusHandle.FileName) + " and " + @Path.GetFileName(Control.PresentationLogHandle.FileName) + " with an allowed time difference of: " + ErrorMargin + "s";
+            StringBuilder strb = new StringBuilder();
+            strb.Append("Action: Compared triggers between ");
+            strb.Append(@Path.GetFileName(Control.EDFPlusHandle.FileName) + " and " + @Path.GetFileName(Control.PresentationLogHandle.FileName));
+            strb.AppendLine(" with an allowed time difference of: " + ErrorMargin + "s");
+            strb.AppendLine("Ignored Log. triggers " + this.TriggerLowerLimit + "< and >" + this.TriggerUpperLimit);
+            string IgnoreTriggers = String.Join(";", this.TriggersToIgnore);
+            strb.AppendLine("Ignored speficic log. triggers: " + ( IgnoreTriggers.Length > 0 ? IgnoreTriggers : "None") );
+
+            return strb.ToString();
         }
 
         public override string GetDescription()
@@ -187,7 +197,7 @@ namespace EDFPlusChecker.Engine
             return Description;
         }
 
-        public ActionCompareTriggers(Controller cont, int windowSize, double errorMargin, int triggerLowerLimit, int triggerUpperLimit, bool removeRecTriggerPriorToPlace)
+        public ActionCompareTriggers(Controller cont, int windowSize, double errorMargin, int triggerLowerLimit, int triggerUpperLimit, bool removeRecTriggerPriorToPlace, int[] triggersToIgnore)
             : base(cont)
         {
             this.RemoveRecTriggerPriorToPlace = removeRecTriggerPriorToPlace;
@@ -195,6 +205,7 @@ namespace EDFPlusChecker.Engine
             this.ErrorMargin = errorMargin;
             this.TriggerUpperLimit = triggerUpperLimit;
             this.TriggerLowerLimit = triggerLowerLimit;
+            this.TriggersToIgnore = triggersToIgnore;
         }
     }
 }

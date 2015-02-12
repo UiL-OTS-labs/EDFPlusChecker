@@ -52,9 +52,8 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
                 {
                     bool AddFlag = AddTriggersFlagCheckBox.IsChecked == true;
                     bool RemoveFlag = RemoveTriggersFlagCheckBox.IsChecked == true;
-                    bool ReplaceFlag = ReplaceTriggersFlagCheckBox.IsChecked == true;
 
-                    Engine.AddAction(new ActionResolveTriggerDifferences(Engine, Engine.ErrorMargin, ReplaceFlag, RemoveFlag, AddFlag));
+                    Engine.AddAction(new ActionResolveTriggerDifferences(Engine, Engine.ErrorMargin, RemoveFlag, AddFlag));
 
                 }
                     
@@ -98,7 +97,7 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
             ResolveDetailGroupBox.IsEnabled = Engine.HasLogFiles;
             ResolveDifferencesCheckBox.IsChecked= Engine.HasLogFiles;
             ResolveDifferencesCheckBox.IsEnabled = Engine.HasLogFiles;
-            SaveModifiedFilesCheckbox.IsChecked = true;
+            SaveModifiedFilesCheckbox.IsChecked = false;
             
             OutputDirectoryTextBox.Text = OutputDirectoryPathDialog.SelectedPath;
         }

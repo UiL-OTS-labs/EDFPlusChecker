@@ -52,8 +52,22 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
                 int TriggerUpperLimit;
                 if (!int.TryParse(LogFileMaximumTriggerTextBox.Text, out TriggerUpperLimit))
                     throw new ActionNotWellConfiguredException("Maximum trigger from trigger range is not an integer.");
-
-                Engine.AddAction(new ActionCompareTriggers(Engine, WindowSize, ErrorMarginInMilliSeconds / 1000, TriggerLowerLimit, TriggerUpperLimit, RemoveLogTriggersFromRecCheckBox.IsChecked == true));
+                
+                int[] IgnoreTriggers_int;
+                if (TriggersToIgnoreTextBox.Text != "")
+                {
+                    string[] IgnoreTriggers_str = TriggersToIgnoreTextBox.Text.Split(new char[] { ';' });
+                    IgnoreTriggers_int = new int[IgnoreTriggers_str.Length];
+                    int index = 0;
+                    foreach (string IgnoreTrigger_str in IgnoreTriggers_str)
+                    {
+                        if (!int.TryParse(IgnoreTrigger_str, out IgnoreTriggers_int[index++]))
+                            throw new ActionNotWellConfiguredException("Ignore triggers ill-defined!");
+                    }
+                }
+                else
+                    IgnoreTriggers_int = new int[0];
+                Engine.AddAction(new ActionCompareTriggers(Engine, WindowSize, ErrorMarginInMilliSeconds / 1000, TriggerLowerLimit, TriggerUpperLimit, RemoveLogTriggersFromRecCheckBox.IsChecked == true, IgnoreTriggers_int));
               } catch(ActionNotWellConfiguredException e)
             {
                 possibleErrorMessage = e.Message;

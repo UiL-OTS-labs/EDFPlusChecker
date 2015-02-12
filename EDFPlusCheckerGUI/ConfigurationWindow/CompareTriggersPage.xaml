@@ -37,8 +37,10 @@
                 <TextBox x:Name="LogFileMinimumTriggerTextBox" HorizontalAlignment="Left" Height="23" Margin="72,34,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="56" HorizontalContentAlignment="Right"/>
                 <TextBox x:Name="LogFileMaximumTriggerTextBox" HorizontalAlignment="Left" Height="23" Margin="222,34,0,0" TextWrapping="Wrap" Text="255" VerticalAlignment="Top" Width="56" HorizontalContentAlignment="Right"/>
                 <Button Content="?" HorizontalAlignment="Left" Margin="548,10,0,0" VerticalAlignment="Top" Width="16" Click="LogFileTriggerRangeInformationButton_Click" Height="47"/>
-                <CheckBox x:Name="RemoveLogTriggersFromRecCheckBox" Content="Search and remove trigger from recording if log trigger was not found within recording-time range." HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="544" Height="22" IsChecked="True"/>
+                <CheckBox x:Name="RemoveLogTriggersFromRecCheckBox" Content="Search and remove trigger from recording if log trigger was not found within recording-time range." HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="544" Height="22"/>
                 <Button Content="?" HorizontalAlignment="Left" Margin="548,67,0,0" VerticalAlignment="Top" Width="16" Height="22" Click="RemoveLogTriggersFromRecInformationButton_Click"/>
+                <Label Content="Triggers to ignore:&#xD;&#xA;(deliminator = ;)" HorizontalAlignment="Left" Margin="297,18,0,0" VerticalAlignment="Top" Width="116" Height="39"/>
+                <TextBox x:Name="TriggersToIgnoreTextBox" HorizontalAlignment="Left" Height="47" Margin="413,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="117" HorizontalContentAlignment="Right"/>
             </Grid>
         </GroupBox>
     </Grid>
