@@ -48,17 +48,9 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
 
             try
             {
-                if (ResolveDifferencesCheckBox.IsChecked == true)
-                {
-                    bool AddFlag = AddTriggersFlagCheckBox.IsChecked == true;
-                    bool RemoveFlag = RemoveTriggersFlagCheckBox.IsChecked == true;
-
-                    Engine.AddAction(new ActionResolveTriggerDifferences(Engine, Engine.ErrorMargin, RemoveFlag, AddFlag));
-
-                }
-                    
                 if(SaveModifiedFilesCheckbox.IsChecked == true)
                 {
+                    Engine.AddAction(new ActionResolveTriggerDifferences(Engine, Engine.ErrorMargin, true, true));
                     string SavePath = OutputDirectoryTextBox.Text;
                     string Prefix = NewFilesPrefixTextBox.Text;
                     Engine.AddAction(new ActionSaveEDFFile(Engine, SavePath, Prefix));
@@ -75,15 +67,10 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
 
         public override void UndoConfigureEngine()
         {
-            if (ResolveDifferencesCheckBox.IsChecked == true)
-            {
-                Engine.RemovePreviousAction();
-            }
-
             if (SaveModifiedFilesCheckbox.IsChecked == true)
-            {
                 Engine.RemovePreviousAction();
-            }
+
+            Engine.RemovePreviousAction();
         }
 
         private void SelectOutputFileButton_Click(object sender, RoutedEventArgs e)
@@ -94,9 +81,6 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
 
         private void SaveFilesPage_Loaded(object sender, RoutedEventArgs e)
         {
-            ResolveDetailGroupBox.IsEnabled = Engine.HasLogFiles;
-            ResolveDifferencesCheckBox.IsChecked= Engine.HasLogFiles;
-            ResolveDifferencesCheckBox.IsEnabled = Engine.HasLogFiles;
             SaveModifiedFilesCheckbox.IsChecked = false;
             
             OutputDirectoryTextBox.Text = OutputDirectoryPathDialog.SelectedPath;
@@ -111,22 +95,12 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
 
         private void SaveModifiedFilesCheckbox_Unchecked(object sender, RoutedEventArgs e)
         {
-            OutPutFilesGrid.IsEnabled = false;
+            OutputDetailsGrid.IsEnabled = false;
         }
 
         private void SaveModifiedFilesCheckbox_Checked(object sender, RoutedEventArgs e)
         {
-            OutPutFilesGrid.IsEnabled = true;
-        }
-
-        private void ResolveDifferencesCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            ResolveDetailGroupBox.IsEnabled = true;
-        }
-
-        private void ResolveDifferencesCheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-            ResolveDetailGroupBox.IsEnabled = false;
+            OutputDetailsGrid.IsEnabled = true;
         }
     }
 }

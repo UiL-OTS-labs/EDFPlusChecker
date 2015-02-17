@@ -45,13 +45,14 @@ namespace EDFPlusChecker.GraphicalUserInterface
             ActionConfigurationChain.AddLast(new OpenFilesPage(Engine));
             ActionConfigurationChain.AddLast(new FixBioTracePage(Engine));
             ActionConfigurationChain.AddLast(new ParseTriggerPage(Engine));
-            ActionConfigurationChain.AddLast(new CompareTriggersPage(Engine));
+            ActionConfigurationChain.AddLast(new TimeConversionPage(Engine));
+            ActionConfigurationChain.AddLast(new CompareTriggerPage(Engine));
             ActionConfigurationChain.AddLast(new SaveFilesPage(Engine));
             ActionConfigurationChain.AddLast(new ActionOverviewPage(Engine));
 
             // set up to rotate
-            RunningIconRotate = this.FindResource("RotateIcon") as Storyboard;
-            Storyboard.SetTarget(RunningIconRotate, this.RunningIcon);
+            //RunningIconRotate = this.FindResource("RotateIcon") as Storyboard;
+            //Storyboard.SetTarget(RunningIconRotate, this.RunningIcon);
          
         }
 
@@ -74,16 +75,23 @@ namespace EDFPlusChecker.GraphicalUserInterface
             }
             ExitButton.IsEnabled = true;
             StartButton.IsEnabled = false;
+            LogButton.IsEnabled = true;
             CancelButton.Visibility = System.Windows.Visibility.Hidden;
-            RunningIconRotate.Stop();
+            //RunningIconRotate.Stop();
         }
 
         protected void MyBackGroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            ProgressBar.Value = e.ProgressPercentage;
-            PercentageLabel.Content = e.ProgressPercentage + "%";
+            if (e.ProgressPercentage > 0)
+            {
+                ProgressBar.Value = e.ProgressPercentage;
+                PercentageLabel.Content = e.ProgressPercentage + "%";
+            }
             string Description = e.UserState as string;
             this.ConsoleOutputTextBox.AppendText(Description + Environment.NewLine);
+            this.ConsoleOutputTextBox.Focus();
+            this.ConsoleOutputTextBox.CaretIndex = this.ConsoleOutputTextBox.Text.Length;
+            this.ConsoleOutputTextBox.ScrollToEnd();
         }
 
         public void ConfigurationComplete()
@@ -95,6 +103,7 @@ namespace EDFPlusChecker.GraphicalUserInterface
         {
             Engine.ClearActionChain();
             StartButton.IsEnabled = false;
+            LogButton.IsEnabled = false;
         }
 
         private void ConfigureButton_Click(object sender, RoutedEventArgs e)
@@ -116,7 +125,9 @@ namespace EDFPlusChecker.GraphicalUserInterface
                 CancelButton.Visibility = System.Windows.Visibility.Visible;
 
                 StatusTextBox.Text = "Running...";
-                RunningIconRotate.Begin();
+                PercentageLabel.Content = "0%";
+
+                //RunningIconRotate.Begin();
                 MyBackGroundWorker.RunWorkerAsync();
             }
             //Engine.StartExecution(this.ApplicationLogPath);
@@ -137,6 +148,11 @@ namespace EDFPlusChecker.GraphicalUserInterface
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             MyBackGroundWorker.CancelAsync();
+        }
+
+        private void LogButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(@Engine.ApplicationLogFileName);
         }
     }
 }

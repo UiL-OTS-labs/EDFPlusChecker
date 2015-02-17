@@ -4,31 +4,84 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      xmlns:src="clr-namespace:EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow" TextOptions.TextFormattingMode="Display" Height="400" Width="600">
+      xmlns:src="clr-namespace:EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow" TextOptions.TextFormattingMode="Display" Height="400" Width="600" FontSize="14">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height = "1*"/>
+            <RowDefinition Height = "1*"/>
+            <RowDefinition Height = "3.3*"/>
+            <RowDefinition Height = "3.3*"/>
+            <RowDefinition Height = "3.4*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label Content="Fix and Extract Triggers" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <GroupBox Header="Recording Files (EDF+) " HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Height="97" Width="574">
-            <Grid Margin="10,10,-2,-8">
-                <CheckBox x:Name="ParseRecordingTriggersCheckBox" Content="Extract triggers from EDF+ annotations via parsing" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Checked="ParseRecordingTriggersCheckBox_Checked" Unchecked="ParseRecordingTriggersCheckBox_Unchecked"/>
-                <Grid x:Name="ParseRecordingTriggersGrid" HorizontalAlignment="Left" Height="43" Margin="0,28,0,0" VerticalAlignment="Top" Width="284">
-                    <TextBox x:Name="RecordingFilePrefixTextbox" HorizontalAlignment="Left" Height="23" Margin="53,10,0,0" TextWrapping="Wrap" Text="Trigger: " VerticalAlignment="Top" Width="58" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-                    <TextBox x:Name="RecordingFilePostfix" HorizontalAlignment="Left" Height="23" Margin="137,10,0,0" TextWrapping="Wrap" Text="('" VerticalAlignment="Top" Width="58" VerticalContentAlignment="Center" RenderTransformOrigin="-5.069,0.391"/>
-                    <Label Content="Prefix:" HorizontalAlignment="Left" Margin="17,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="0" Height="22"/>
-                    <Label Content=":Postfix" HorizontalAlignment="Left" Margin="200,11,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="0" Height="22"/>
-                    <Label Content="22" HorizontalAlignment="Left" Margin="111,10,0,0" VerticalAlignment="Top" FontSize="13" Height="22" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="18"/>
+        <Label Content="Parse Triggers" FontSize="18" FontWeight="Bold"/>
+        <Label Content="Integers need to be extracted from the files" Grid.Row="1"/>
+        <GroupBox Header="Recording Files (EDF+)" Grid.Row="2" FontSize="12" Margin="5" Padding="5">
+            <Grid VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height = "Auto"/>
+                    <RowDefinition Height = "30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <CheckBox x:Name="ParseRecordingTriggersCheckBox" Content="Extract triggers from EDF+ annotations via parsing (delimited by a prefix and postfix)." Checked="ParseRecordingTriggersCheckBox_Checked" Unchecked="ParseRecordingTriggersCheckBox_Unchecked"/>
+                <Button Content="?" Width="25"  Height="25" Click="EDFAnnotationInformationButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                
+                <Grid x:Name="ParseRecordingTriggersGrid" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height = "1*"/>
+                    </Grid.RowDefinitions>
+                    <Label VerticalAlignment="Center" Content="Prefix:" HorizontalAlignment="Right" Grid.Column="0"/>
+                    <TextBox VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  x:Name="RecordingFilePrefixTextbox" Text="Trigger: " Grid.Column="1"/>
+                    <Label VerticalAlignment="Center" Content="Postfix:" HorizontalAlignment="Right" Grid.Column="2"/>
+                    <TextBox VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" x:Name="RecordingFilePostfix" TextWrapping="Wrap" Text="('" Grid.Column="3"/>
                 </Grid>
-                <Button Content="?" HorizontalAlignment="Left" Margin="538,-8,0,0" VerticalAlignment="Top" Width="16"  Height="79" Click="EDFAnnotationInformationButton_Click"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Log Files (Presentation)" Margin="10,254,16,68">
-            <Label Content="Presentation-Log event codes are ignored if they do not parse into integers. " Margin="10,10,-2,1"/>
+
+        <GroupBox x:Name="LogFileCompareTriggersGroupBox" Header="General ex- and inclusion" Grid.Row="3" FontSize="12" Margin="5" Padding="5">
+            <Grid VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height = "Auto"/>
+                    <RowDefinition Height = "30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/> 
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Range (inclusive) of integers to be seen as triggers:" Grid.ColumnSpan="4"/>
+
+                <Label VerticalAlignment="Center" HorizontalAlignment="Right" Content="Maximum:" Grid.Row="1" Grid.Column="0"/>
+                <TextBox x:Name="LogFileMaximumTriggerTextBox" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextWrapping="Wrap" Text="255" Grid.Row="1" Grid.Column="1"/>
+
+                <Label HorizontalAlignment="Right" VerticalAlignment="Center" Content="Minimum:" Grid.Row="1" Grid.Column="2"/>
+                <TextBox x:Name="LogFileMinimumTriggerTextBox" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="0" Grid.Row="1" Grid.Column="3"/>
+
+                
+                <Label Content="Specific integers to ignore (delimitor = ';'):" HorizontalAlignment="Left" Grid.Column="5"/>
+                <Button Content="?" Width="25" VerticalAlignment="Top" Click="LogFileTriggerRangeInformationButton_Click" Height="25" Grid.Column="5"  HorizontalAlignment="Right"/>
+                <TextBox x:Name="TriggersToIgnoreTextBox" HorizontalAlignment="Stretch" TextWrapping="Wrap" Margin="10,0,30,0" Grid.Row="1" Grid.Column="5"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Log File (Presentation)" Grid.Row="4" FontSize="12" Margin="5" Padding="5">
+            <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Presentation-Log event codes are ignored if they do not parse into integers. "/>
         </GroupBox>
     </Grid>
 </src:ConfigurationPageBase>
+  

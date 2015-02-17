@@ -30,6 +30,12 @@ namespace EDFPlusChecker
         internal Stack<string> PresentationLogFileStack;
         internal DifferenceFile DifferenceBetweenFiles;
 
+        internal TimeFrameConverter TimeConversion;
+        
+        public int[] TriggerNumbersToIgnore = new int[0];
+        public int TriggerNumberLowerLimit = 0;
+        public int TriggerNumberUpperLimit = 9999;
+
         private StreamWriter ApplicationLogFile;
 
         internal BaseAction CurrentAction;
@@ -75,8 +81,20 @@ namespace EDFPlusChecker
       
         #endregion Structs def
 
+        private void FlushPrevious()
+        {
+            TimeConversion = new TimeFrameConverter(this);
+            DifferenceBetweenFiles = null;
+            CurrentAction = null;
+            EDFPlusHandle = null;
+            PresentationLogHandle = null;
+        }
+
         public bool SetFileLists(string[] EDFFiles, string[] LogFiles)
         {
+            this.EDFFileStack = new Stack<string>();
+            this.PresentationLogFileStack = new Stack<string>();
+
             PresentationLogFileStack.Clear();
             EDFFileStack.Clear();
 
@@ -121,6 +139,8 @@ namespace EDFPlusChecker
 
         public bool StartExecution(BackgroundWorker sendingWorker)
         {
+            if (this.EDFFileStack == null || this.PresentationLogFileStack == null)
+                throw new ActionCannotDoWhatDoBeDo("No files were presented. Initalise file stack prior to executing!");
             string applicationLogFileName = this.ApplicationLogFileName;
 
             int counter = 1;
@@ -133,14 +153,16 @@ namespace EDFPlusChecker
                     throw new FileNotFoundException("Could not generate an Application Log file after " + counter + " attemtps!");
             }
 
-            ApplicationLogFile = new StreamWriter(Holder);
+            this.ApplicationLogFileName = Holder;
+            ApplicationLogFile = new StreamWriter(this.ApplicationLogFileName);
             Log("Keeping detailed log in: " + applicationLogFileName, true);
 
             int TotalNumberOfFiles = EDFFileStack.Count;
 
             while(EDFFileStack.Count > 0)
             {
-                
+                this.FlushPrevious(); // make absolutely sure nothing of the previous files will be used.
+
                 try
                 {
                     foreach (BaseAction Action in ActionChain)
@@ -149,11 +171,10 @@ namespace EDFPlusChecker
                         {
                             return false;
                         }
-
                         CurrentAction = Action;
                         string Description = CurrentAction.Act();
-                        UpdateProgress(sendingWorker, (1.0 - (double)EDFFileStack.Count / TotalNumberOfFiles), Description);
-                        Log(Description, true);      
+                        UpdateProgress(sendingWorker, -1, Description);
+                        Log(Description, true);
                     }
                 }
                 catch (ActionCannotDoWhatDoBeDo e)
@@ -169,6 +190,7 @@ namespace EDFPlusChecker
                 Log(new String('=', 50), true);
             }
 
+            UpdateProgress(sendingWorker, -1, "FINISHED!");
             ApplicationLogFile.Close();
             return true;
         }
@@ -186,9 +208,7 @@ namespace EDFPlusChecker
         public Controller()
         {
             ActionChain = new LinkedList<BaseAction>();
-
-            this.EDFFileStack = new Stack<string>();
-            this.PresentationLogFileStack = new Stack<string>();
+            TimeConversion = new TimeFrameConverter(this);
         }
         #endregion Constructor
     }

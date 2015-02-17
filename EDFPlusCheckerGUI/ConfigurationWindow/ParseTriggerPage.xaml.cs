@@ -34,9 +34,6 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
         public override bool ConfigureEngine(out string possibleErrorMessage)
         {
             possibleErrorMessage = "";
-           ;
-            
-
             try
             {
                 if(ParseRecordingTriggersCheckBox.IsChecked == true)
@@ -44,7 +41,34 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
                     string Prefix = RecordingFilePrefixTextbox.Text;
                     string Postfix = RecordingFilePostfix.Text;
 
-                    Engine.AddAction(new ActionParseAnnotations(Engine, Prefix, Postfix));
+                    Engine.AddAction(new ActionParseTriggers(Engine, Prefix, Postfix));
+
+                    int TriggerLowerLimit;
+                    if (!int.TryParse(LogFileMinimumTriggerTextBox.Text, out TriggerLowerLimit))
+                        throw new ActionNotWellConfiguredException("Minimum trigger from trigger range is not an integer.");
+
+                    int TriggerUpperLimit;
+                    if (!int.TryParse(LogFileMaximumTriggerTextBox.Text, out TriggerUpperLimit))
+                        throw new ActionNotWellConfiguredException("Maximum trigger from trigger range is not an integer.");
+
+                    int[] IgnoreTriggers_int;
+                    if (TriggersToIgnoreTextBox.Text != "")
+                    {
+                        string[] IgnoreTriggers_str = TriggersToIgnoreTextBox.Text.Split(new char[] { ';' });
+                        IgnoreTriggers_int = new int[IgnoreTriggers_str.Length];
+                        int index = 0;
+                        foreach (string IgnoreTrigger_str in IgnoreTriggers_str)
+                        {
+                            if (!int.TryParse(IgnoreTrigger_str, out IgnoreTriggers_int[index++]))
+                                throw new ActionNotWellConfiguredException("Ignore triggers ill-defined!");
+                        }
+                    }
+                    else
+                        IgnoreTriggers_int = new int[0];
+
+                    Engine.TriggerNumberLowerLimit = TriggerLowerLimit;
+                    Engine.TriggerNumberUpperLimit = TriggerUpperLimit;
+                    Engine.TriggerNumbersToIgnore = IgnoreTriggers_int;
                 }
                 
             }
@@ -67,6 +91,11 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
         private void EDFAnnotationInformationButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Extracts the trigger number from the string based annotation in EDF+ files.", "Information", MessageBoxButton.OK, MessageBoxImage.Question);
+        }
+
+        private void LogFileTriggerRangeInformationButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("There might be integers put into the Event Code of Presentation that are not to be recognised as trigger numbers.", "Information", MessageBoxButton.OK, MessageBoxImage.Question);
         }
 
         private void ParseRecordingTriggersCheckBox_Checked(object sender, RoutedEventArgs e)

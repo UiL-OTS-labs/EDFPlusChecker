@@ -5,35 +5,61 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      xmlns:src="clr-namespace:EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow" Width="600" Height="400" TextOptions.TextFormattingMode="Display">
+      xmlns:src="clr-namespace:EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow" Width="600" Height="400" TextOptions.TextFormattingMode="Display" FontSize="14">
 
-    <Grid Width="594">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="161*"/>
-            <RowDefinition Height="179*"/>
+            <RowDefinition Height = "1*"/>
+            <RowDefinition Height = "1*"/>
+            <RowDefinition Height = "5*"/>
+            <RowDefinition Height = "5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label Content="Fix BioTrace EDF+ Files" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <GroupBox Header="EDF+ File Header" HorizontalAlignment="Left" Margin="0,100,0,0" Grid.ColumnSpan="2" Width="574" Height="51" VerticalAlignment="Top">
-            <Grid Margin="0,10,-2,-8">
-                <CheckBox x:Name="FixBioTraceHeaderCheckBox" Content="Remove illegal characters from the header of BioTrace exported EDF+ files" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
-                <Button x:Name="FixBioTraceHeaderInformationButton" Content="?" HorizontalAlignment="Left" Margin="548,0,0,0" VerticalAlignment="Top" Width="16" Click="FixBioTraceHeaderInformationButton_Click" Height="24"/>
+        <Label Content="Fix BioTrace EDF+ Files" FontSize="18" FontWeight="Bold"/>
+        <Label Content="BioTrace software sometimes exports corrupted EDF+ files" Grid.Row="1"/>
+
+        <GroupBox Header="BioTrace EDF+ File Header" Grid.Row="2" FontSize="12" Margin="5" Padding="5">
+            <Grid VerticalAlignment="Center">
+                <CheckBox x:Name="FixBioTraceHeaderCheckBox" Content="Remove illegal characters from the header of BioTrace exported EDF+ files." VerticalAlignment="Top"/>
+                <Button Content="?" HorizontalAlignment="Right"  Width="25" Click="FixBioTraceHeaderInformationButton_Click" Height="25"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="EDF+ Annotations" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="87" Width="574" Grid.ColumnSpan="2" Grid.Row="1">
-            <Grid Margin="10,10,-2,-8">
-                <Button x:Name="FixBioTraceAnnotationInformationButton" Content="?" HorizontalAlignment="Left" Margin="538,0,0,0" VerticalAlignment="Top" Width="16" Click="FixBioTraceAnnotationInformationButton_Click" Height="57"/>
-                <CheckBox x:Name="FixBioTraceTriggersCheckBox" Content="Fix faulty bytes in the annotations of BioTrace exported EDF+ files" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Checked="FixBioTraceTriggersCheckBox_Checked" Unchecked="FixBioTraceTriggersCheckBox_Unchecked" Width="341" />
-                <Grid x:Name="BioTraceTriggersGrid" HorizontalAlignment="Left" Margin="0,22,0,0" Width="385" Height="41" VerticalAlignment="Top">
-                    <Label Content="Second Flag:" HorizontalAlignment="Left" Margin="130,11,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="0" Height="22"/>
-                    <TextBox x:Name="BioTraceFixFirstFlagTextBox" HorizontalAlignment="Left" Height="23" Margin="57,11,0,0" TextWrapping="Wrap" Text="Trigger:" VerticalAlignment="Top" Width="58" VerticalContentAlignment="Center"/>
-                    <TextBox x:Name="BioTraceFixSecondFlagTextBox" HorizontalAlignment="Left" Margin="198,11,0,0" TextWrapping="Wrap" Text="('" Width="24" Height="23" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-                    <Label Content="First Flag:" HorizontalAlignment="Left" Margin="4,11,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="0" Height="22"/>
-                    <Label Content="Replacement Char:" HorizontalAlignment="Left" Margin="238,11,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="0" Height="22"/>
-                    <TextBox x:Name="BioTraceFixReplaceMentTextBox" HorizontalAlignment="Left" Margin="335,10,0,0" TextWrapping="Wrap" Text="t" Width="24" Height="23" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+        <GroupBox Header="BioTrace EDF+ Annotations" Grid.Row="3" FontSize="12" Margin="5" Padding="5">
+            <Grid VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height = "Auto"/>
+                    <RowDefinition Height = "30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="?" VerticalAlignment="Top" HorizontalAlignment="Right" Click="FixBioTraceAnnotationInformationButton_Click" Height="25" Width="25" Grid.Column="1"/>
+               
+                <CheckBox x:Name="FixBioTraceTriggersCheckBox" Content="Fix faulty bytes in the annotations of BioTrace exported EDF+ files:" Checked="FixBioTraceTriggersCheckBox_Checked" Unchecked="FixBioTraceTriggersCheckBox_Unchecked"/>
+                
+                <Grid x:Name="BioTraceTriggersGrid" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="0.5*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label Content="First Flag:" HorizontalAlignment="Right" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="BioTraceFixFirstFlagTextBox" HorizontalContentAlignment="Center" TextWrapping="Wrap" Text="Trigger:" VerticalContentAlignment="Center" Grid.Column="1"/>
+
+                    <Label Content="Second Flag:" HorizontalAlignment="Right" VerticalContentAlignment="Center" Grid.Column="2"/>
+                    <TextBox x:Name="BioTraceFixSecondFlagTextBox" HorizontalContentAlignment="Center" TextWrapping="Wrap" Text="('" VerticalContentAlignment="Center" Grid.Column="3"/>
+
+                    <Label Content="Replacement Char:" HorizontalAlignment="Right" VerticalContentAlignment="Center" Grid.Column="4"/>
+                    <TextBox x:Name="BioTraceFixReplaceMentTextBox" TextWrapping="Wrap" Text="t" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="5"/>
+
                 </Grid>
             </Grid>
         </GroupBox>

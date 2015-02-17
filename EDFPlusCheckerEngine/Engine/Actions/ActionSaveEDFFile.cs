@@ -50,7 +50,7 @@ namespace EDFPlusChecker.Engine
 
         public override string GetDescription()
         {
-            return "Save EDF Files.";
+            return "Save EDF Files with prefix: " + this.Prefix + ".";
         }
     }
 }

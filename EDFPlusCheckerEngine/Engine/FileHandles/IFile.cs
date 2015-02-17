@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EDFPlusChecker.Engine
 {
-    struct Trigger
+    public struct Trigger
     {
         public double OnsetInSeconds;
 
@@ -47,10 +47,11 @@ namespace EDFPlusChecker.Engine
 
     interface IFile
     {
+        string FileName { get; }
+        Trigger[] Triggers { get;}
+        Controller Owner { get; }
+
         bool SaveToFile(string newFileName);
-
-        Trigger[] GetTriggers();
-
         bool CloseFile();
     }
 }

@@ -1,0 +1,168 @@
+﻿<src:ConfigurationPageBase x:Class="EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow.CompareTriggerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      xmlns:src="clr-namespace:EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow" Width="600" Height="400" TextOptions.TextFormattingMode="Display" FontSize="12">
+
+    <Grid Width="600" Height="400">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Compare Triggers" FontSize="18" FontWeight="Bold"/>
+        <Label Content="Triggers are compared and set-up for removal or addition."  Grid.Row="1"/>
+        
+        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="2" Margin="5" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Recording Triggers" HorizontalAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+            <Label Content="Log. Triggers" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" Grid.Row="0" Grid.Column="2"/>
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4"/>
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Grid.Row="1" Grid.Column="2" Grid.RowSpan="4"/>
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.RowSpan="1" Grid.ColumnSpan="3" Margin="0,10" Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Timing" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Content="Number" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Content="===" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" Background="#FFA9DA92"/>
+                    <Label Content="===" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" Background="#FFA9DA92"/>
+                    <Label Content="Timing" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <Label Content="Number" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.RowSpan="1" Grid.ColumnSpan="3" Margin="0,10" Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Timing" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Content="Number" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Content="===" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" Background="#FFA9DA92"/>
+                    <Label Content="=/=" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" Background="#FFEA6262"/>
+                    <Label Content="Timing" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <Label Content="Number" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Grid.RowSpan="1" Grid.ColumnSpan="3" Margin="0,10" Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Timing" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Content="Number" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Content="=/=" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" Background="#FFEA6262"/>
+                    <Label Content="===" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" Background="#FFA9DA92"/>
+                    <Label Content="Timing" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <Label Content="Number" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Grid.RowSpan="1" Grid.ColumnSpan="3" Margin="0,10" Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Timing" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <Label Content="Number" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Content="=?=" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" Background="#FFEA6262"/>
+                    <Label Content="=?=" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Background="#FFEA6262" Margin="0,0,0,2"/>
+                    <Label Content="Timing" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <Label Content="Number" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Column="4" Grid.Row="1" Grid.RowSpan="1" Margin="0,10" Padding="10,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Equal Timings and Equal Numbers" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0"/>
+                    <Label Content="[Take no action]" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1"/>
+                </Grid>
+            </Border>
+
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Column="4" Grid.Row="2" Grid.RowSpan="1" Margin="0,10" Padding="10,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Equal Timings but Unequal Numbers" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0"/>
+                    <CheckBox x:Name="EqualTimingUnEqualNumbers_RemoveRecording" Content="Remove Recording Trigger" Grid.Row="1" IsChecked="True"/>
+                </Grid>
+            </Border>
+
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Column="4" Grid.Row="3" Grid.RowSpan="1" Margin="0,10" Padding="10,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Equal Numbers but Unequal Timings" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0"/>
+                    <CheckBox x:Name="UnequalTimingEqualNumbers_RemoveRecording"  Content="Remove Recording Trigger" Grid.Row="1"/>
+                </Grid>
+            </Border>
+
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Column="4" Grid.Row="4" Grid.RowSpan="1" Margin="0,10" Padding="10,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="No Exact Match was Ever Found" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0"/>
+                    <CheckBox x:Name="NoMatchEver_AddLogged" Content="Add Logged Trigger" Grid.Row="1" IsChecked="True"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</src:ConfigurationPageBase>

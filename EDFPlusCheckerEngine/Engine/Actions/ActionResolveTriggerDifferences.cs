@@ -30,28 +30,28 @@ namespace EDFPlusChecker.Engine
             DifferenceFile DifFile = Control.DifferenceBetweenFiles;
             Active = true;
 
-            // Translate the replace list to additions to the AddList and RemoveList
-            foreach (Trigger[] trig in DifFile.ReplaceList)
-            {
-                if(!DifFile.RemoveList.Contains(trig[0]))
-                    DifFile.RemoveList.Add(trig[0]);
+            //// Translate the replace list to additions to the AddList and RemoveList
+            //foreach (Trigger[] trig in DifFile.ReplaceList)
+            //{
+            //    if(!DifFile.RemoveList.Contains(trig[0]))
+            //        DifFile.RemoveList.Add(trig[0]);
                 
-                bool TriggerInAddList = false;
-                foreach (Trigger[] addTrigger in DifFile.AddList)
-	            {
-		            if(addTrigger[0].Equals(trig[1]))
-                    {
-                        TriggerInAddList = true;
-                        break;
-                    }
-	            }
+            //    bool TriggerInAddList = false;
+            //    foreach (Trigger[] addTrigger in DifFile.AddList)
+            //    {
+            //        if(addTrigger[0].Equals(trig[1]))
+            //        {
+            //            TriggerInAddList = true;
+            //            break;
+            //        }
+            //    }
 
-                if(!TriggerInAddList)
-                {
-                    Trigger[] temp = {trig[1], trig[1]};
-                    DifFile.AddList.Add(temp);
-                } 
-            }
+            //    if(!TriggerInAddList)
+            //    {
+            //        Trigger[] temp = {trig[1], trig[1]};
+            //        DifFile.AddList.Add(temp);
+            //    } 
+            //}
 
             if(RemoveFlag)
                 foreach (Trigger trig in Control.DifferenceBetweenFiles.RemoveList)
@@ -64,7 +64,7 @@ namespace EDFPlusChecker.Engine
                 foreach (Trigger[] trig in Control.DifferenceBetweenFiles.AddList)
                 {
                     if (!Control.EDFPlusHandle.AddTrigger(trig[0]))
-                        throw new ActionCannotDoWhatDoBeDo("Could not resolve to add trigger. " + trig[0].ToString());
+                        throw new ActionCannotDoWhatDoBeDo("Could not resolve to add Log. trigger. " + trig[0].ToString());
                 }
 
             Active = false;

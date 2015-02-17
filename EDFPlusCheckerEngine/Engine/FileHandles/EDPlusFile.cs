@@ -4,6 +4,8 @@ using System.Reflection;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Linq;
+using System.Text;
 
 using NeuroLoopGainLibrary.Edf;
 
@@ -12,6 +14,24 @@ namespace EDFPlusChecker.Engine
     class EDFPlusFile : NeuroLoopGainLibrary.Edf.EdfPlusFile, IFile
     {
         #region public properties
+
+        private Controller _owner;
+        public Controller Owner { get { return _owner; } }
+
+        private Trigger[] _Triggers;
+
+        public Trigger[] Triggers
+        {
+            get
+            {
+                if (_Triggers == null)
+                {
+                    _Triggers = GetTriggers(Owner.TriggerNumbersToIgnore, Owner.TriggerNumberLowerLimit, Owner.TriggerNumberUpperLimit);
+                }
+                return _Triggers;
+            }
+        }
+
         public long AnnotationSignalOffsetBytes 
         {
             get {
@@ -66,10 +86,12 @@ namespace EDFPlusChecker.Engine
         #endregion
 
         #region Constructor
-        public EDFPlusFile(string aFileName, bool doOpenReadOnly = false, bool doUseMemoryStream = true, PrereadTALs aPrereadTALs = PrereadTALs.None, bool doOpen = true) 
+        public EDFPlusFile(Controller owner, string aFileName, bool doOpenReadOnly = false, bool doUseMemoryStream = true, PrereadTALs aPrereadTALs = PrereadTALs.None, bool doOpen = true) 
             : base(@aFileName, doOpenReadOnly, doUseMemoryStream, aPrereadTALs, doOpen)
         {
+            this._owner = owner;
         }
+
         #endregion Constructor
 
         public bool SaveToFile(string newFilename)
@@ -121,7 +143,7 @@ namespace EDFPlusChecker.Engine
             DoDataBufferSizeChanged();
         }
 
-        public Trigger[] GetTriggers()
+        private Trigger[] GetTriggers(int[] triggersToIgnore, int lowerTriggerLimit, int upperTriggerLimit)
         {
             if (!TALRead)
                 ReadTALsToMemory();
@@ -129,11 +151,11 @@ namespace EDFPlusChecker.Engine
 
             foreach(EdfPlusAnnotation Annotation in this.TAL)
             {
-                int trigger = -1;
-                if (int.TryParse(Annotation.Annotation, out trigger))
+                int TriggerNumber = -1;
+                if (int.TryParse(Annotation.Annotation, out TriggerNumber) && TriggerNumber <= upperTriggerLimit && TriggerNumber >= lowerTriggerLimit && !triggersToIgnore.Contains(TriggerNumber))
                 {
                     double OnsetTime = Annotation.Onset;
-                    Result.Add(new Trigger(OnsetTime, 0.0, trigger));
+                    Result.Add(new Trigger(OnsetTime, 0.0, TriggerNumber));
                 }
             }
            Result.Sort(

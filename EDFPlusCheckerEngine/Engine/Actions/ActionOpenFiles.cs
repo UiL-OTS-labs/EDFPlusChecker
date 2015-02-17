@@ -34,7 +34,7 @@ namespace EDFPlusChecker.Engine
 
             if (File.Exists(@EDFFileName))
             {
-                Control.EDFPlusHandle = new EDFPlusFile(@EDFFileName);
+                Control.EDFPlusHandle = new EDFPlusFile(this.Control, @EDFFileName);
                 if(PreReadTALS) // Sometimes we want to do fixes on the memorystream before we load the model into classes etc.
                     Control.EDFPlusHandle.ReadTALsToMemory();
             }
@@ -42,7 +42,7 @@ namespace EDFPlusChecker.Engine
                 throw new ActionCannotDoWhatDoBeDo("Couldn't find file: " + @EDFFileName); 
 
             if (File.Exists(@PresentationLogFilename))
-                Control.PresentationLogHandle = new PresentationLogFile(@PresentationLogFilename);
+                Control.PresentationLogHandle = new PresentationLogFile(this.Control, @PresentationLogFilename);
               
             Active = false;
             

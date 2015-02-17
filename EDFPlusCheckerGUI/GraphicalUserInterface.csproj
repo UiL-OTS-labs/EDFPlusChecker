@@ -85,7 +85,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ConfigurationWindow\CompareTriggersPage.xaml">
+    <Page Include="ConfigurationWindow\CompareTriggerPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ConfigurationWindow\TimeConversionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -130,8 +134,11 @@
     <Compile Include="ConfigurationWindow\ParseTriggerPage.xaml.cs">
       <DependentUpon>ParseTriggerPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ConfigurationWindow\CompareTriggersPage.xaml.cs">
-      <DependentUpon>CompareTriggersPage.xaml</DependentUpon>
+    <Compile Include="ConfigurationWindow\CompareTriggerPage.xaml.cs">
+      <DependentUpon>CompareTriggerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationWindow\TimeConversionPage.xaml.cs">
+      <DependentUpon>TimeConversionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ConfigurationWindow\SaveFilesPage.xaml.cs">
       <DependentUpon>SaveFilesPage.xaml</DependentUpon>
@@ -218,6 +225,13 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="CancelIcon.png" />
+    <Resource Include="ConfigurationIcon.png" />
+    <Resource Include="InfoIcon.png" />
+    <Resource Include="OpenLogIcon.png" />
+    <Resource Include="StartIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

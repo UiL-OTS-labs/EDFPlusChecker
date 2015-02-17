@@ -1,0 +1,18 @@
+Reorder the compare triggers to clearly indicate what the tool does when.
+	Recording	Log.
+		
+	Number 		=/= Number
+	Timing		=== Timing
+		Option: Remove Rec.
+		Option:  Singulary Add Log.		
+
+	Number 		=== Number
+	Timing 		=/= Timing
+		Option:  Remove Rec.
+		Option:  Add Log.
+
+If both =/= do nothing but in the end if nothing is found Singulary add log.
+
+If both === do always do nothing.
+
+Rework COnfiguration pages so they match up.

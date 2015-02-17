@@ -44,7 +44,9 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
         private void ActionOverviewPage_Loaded(object sender, RoutedEventArgs e)
         {
             string[] ActionDescriptions = Engine.GetActionOverview();
-            ActionOverview.Text = String.Join(Environment.NewLine, ActionDescriptions);
+            ActionOverview.Text = ">  ";
+             ActionOverview.AppendText(String.Join(Environment.NewLine + ">  ", ActionDescriptions));
+            ActionOverview.AppendText(Environment.NewLine + ">  Continue to next file (pair)");
         }
     }
 }

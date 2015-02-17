@@ -9,7 +9,7 @@ using System.IO;
 
 namespace EDFPlusChecker.Engine
 {
-    public class ActionParseAnnotations : BaseAction
+    public class ActionParseTriggers : BaseAction
     {
         #region Action Settings
 
@@ -40,8 +40,14 @@ namespace EDFPlusChecker.Engine
                     annotation.Annotation = annotation.Annotation += ":NaN";
             }
 
+            Trigger[] PresentationLogTriggers = Control.PresentationLogHandle.Triggers;
+            Trigger[] EDFPlusTriggers = Control.EDFPlusHandle.Triggers;
+
+            if (PresentationLogTriggers.Length == 0 || EDFPlusTriggers.Length == 0)
+                throw new ActionCannotDoWhatDoBeDo("Either the Presentation (#" + PresentationLogTriggers.Length + ") or EDF+ Trigger #(" + EDFPlusTriggers.Length + ") list came up empty. Check your parsing configuration!");
+
             Active = false;
-            return "Action: Parsed Annotations on " + @Path.GetFileName(Control.EDFPlusHandle.FileName);
+            return "Action: Parsed triggers on " + @Path.GetFileName(Control.EDFPlusHandle.FileName) + " and " + @Path.GetFileName(Control.PresentationLogHandle.FileName);
         }
 
         public Int32 ParseAnnotation(string original)
@@ -69,7 +75,7 @@ namespace EDFPlusChecker.Engine
             return "Parse/Translate Annotations on EDF file from string format to integers";
         }
 
-        public ActionParseAnnotations(Controller cont, string prefix, string postfix)
+        public ActionParseTriggers(Controller cont, string prefix, string postfix)
             : base(cont)
         {
             this.PreFixMatch = prefix;

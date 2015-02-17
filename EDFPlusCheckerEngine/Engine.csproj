@@ -49,7 +49,8 @@
     <Compile Include="Engine\Actions\ActionExceptions.cs" />
     <Compile Include="Engine\Actions\ActionFixBioTraceAnnotations.cs" />
     <Compile Include="Engine\Actions\ActionFixBioTraceHeader.cs" />
-    <Compile Include="Engine\Actions\ActionParseAnnotations.cs" />
+    <Compile Include="Engine\Actions\ActionGenerateTimeConversion.cs" />
+    <Compile Include="Engine\Actions\ActionParseTriggers.cs" />
     <Compile Include="Engine\Actions\ActionResolveTriggerDifferences.cs" />
     <Compile Include="Engine\Actions\ActionSaveEDFFile.cs" />
     <Compile Include="Engine\Actions\ActionOpenFiles.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Engine\FileHandles\IFile.cs" />
     <Compile Include="Engine\FileHandles\PresentationLogFile.cs" />
     <Compile Include="Engine\FileHandles\EDPlusFile.cs" />
+    <Compile Include="Engine\TimeFrameConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

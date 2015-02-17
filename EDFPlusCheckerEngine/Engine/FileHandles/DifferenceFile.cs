@@ -10,18 +10,16 @@ namespace EDFPlusChecker.Engine
     {
         public List<Trigger[]> AddList;
         public List<Trigger> RemoveList;
-        public List<Trigger[]> ReplaceList;
 
         public bool IsEmpty()
         {
-            return ( AddList.Count + RemoveList.Count + ReplaceList.Count ) == 0;
+            return ( AddList.Count + RemoveList.Count) == 0;
         }
 
-        public DifferenceFile(List<Trigger[]> addList, List<Trigger> removeList, List<Trigger[]> replaceList)
+        public DifferenceFile(List<Trigger[]> addList, List<Trigger> removeList)
         {
             this.AddList = addList;
             this.RemoveList = removeList;
-            this.ReplaceList = replaceList;
         }
     }
 }
