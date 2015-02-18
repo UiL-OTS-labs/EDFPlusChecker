@@ -36,6 +36,7 @@ namespace EDFPlusChecker.Engine
 
             List<Trigger[]> AddList = new List<Trigger[]>(); // item to add, close match
             List<Trigger> RemoveList = new List<Trigger>(); // Item to remove
+            List<Trigger> RemoveList2 = new List<Trigger>(); // Item to remove
 
             for (int i = 0; i < Map.Length; i++)
             {
@@ -55,7 +56,7 @@ namespace EDFPlusChecker.Engine
                         else
                         {
                             if (this.EqNumberUneqTiming_RemoveRec && !RemoveList.Contains(EDFPlusTriggers[j]))
-                                RemoveList.Add(EDFPlusTriggers[j]);
+                                RemoveList2.Add(EDFPlusTriggers[j]);
                         }
                     }
                     else //different triggernumber
@@ -114,17 +115,24 @@ namespace EDFPlusChecker.Engine
             Control.Log("Average Trigger-time difference: " + Math.Round(OnSetDiff.Average(), 5) + "s\t range: " + Math.Round(OnSetDiff.Min(), 5) + "s to " + Math.Round(OnSetDiff.Max(), 5) + "s (Note: These are approximate statistics) ", PrintInConsole);
             Control.Log("Used an error margin of: " + this.ErrorMargin + "s");
 
-            Control.Log(Environment.NewLine + "Log. Triggers to be Added: ", PrintInConsole);
+            Control.Log(Environment.NewLine + "Log. Triggers to be Added: [ =?= triggernumber, =?= timing]", PrintInConsole);
             if (AddList.Count == 0)
                 Control.Log("None", PrintInConsole);
             for (int i = 0; i < AddList.Count; i++)
                 Control.Log(i+1 + ":\t Log. " + AddList[i][0].ToString() + "\t closest trigger in recording: [Rec. " + AddList[i][1].ToString() + "]\tdiff: " + String.Format("{0:0.000}", Math.Round(Math.Abs(AddList[i][1].ApproximateOnsetInSeconds - AddList[i][0].ApproximateOnsetInSeconds), 3)) + "s", PrintInConsole);
 
-            Control.Log(Environment.NewLine + "Rec. Triggers to be Removed: ", PrintInConsole);
+            Control.Log(Environment.NewLine + "Rec. Triggers to be Removed: [ =/= triggernumber, === timing]", PrintInConsole);
             if (RemoveList.Count == 0)
                 Control.Log("None", PrintInConsole);
             for (int i = 0; i < RemoveList.Count; i++)
                 Control.Log(i+1 + ":\t Rec. " + RemoveList[i].ToString());
+
+            Control.Log(Environment.NewLine + "Rec. Triggers to be Removed: [ === triggernumber, =/= timing]", PrintInConsole);
+            if (RemoveList2.Count == 0)
+                Control.Log("None", PrintInConsole);
+            for (int i = 0; i < RemoveList2.Count; i++)
+                Control.Log(i + 1 + ":\t Rec. " + RemoveList2[i].ToString());
+
 
             Control.Log(Environment.NewLine, PrintInConsole);
 
