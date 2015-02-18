@@ -37,9 +37,9 @@ namespace EDFPlusChecker.Engine
 
         public override string ToString()
         {
-            string Description =  "Onset: " + OnsetInSeconds + "s";
-            Description += UncertaintyInSeconds <= 0.0 ? "" : " ~+ " + Math.Round( (UncertaintyInSeconds * 1000),1) + "ms";
-            Description += " Trigger: " + TriggerNumber;
+            string Description = "Onset: " + new String(' ', 5 - (int)Math.Floor(Math.Log10((int)OnsetInSeconds) + 1)) + String.Format("{0:0.000}",OnsetInSeconds) + "s";
+            Description += UncertaintyInSeconds <= 0.0 ? "" : " ~+ " + String.Format("{0:0.0}", (UncertaintyInSeconds * 1000)) + "ms";
+            Description += " Trigger: " + new String(' ', 3 - (int)Math.Floor(Math.Log10(TriggerNumber) + 1)) + TriggerNumber;
             return Description;
         }
     }

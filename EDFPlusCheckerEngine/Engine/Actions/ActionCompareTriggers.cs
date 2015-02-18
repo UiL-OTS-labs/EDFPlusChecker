@@ -54,7 +54,7 @@ namespace EDFPlusChecker.Engine
                         // same triggernumber, unequal timing.
                         else
                         {
-                            if(this.EqNumberUneqTiming_RemoveRec)
+                            if (this.EqNumberUneqTiming_RemoveRec && !RemoveList.Contains(EDFPlusTriggers[j]))
                                 RemoveList.Add(EDFPlusTriggers[j]);
                         }
                     }
@@ -63,7 +63,7 @@ namespace EDFPlusChecker.Engine
                         // different triggernumber, equal timing.
                         if (Map[i].SameTiming(EDFPlusTriggers[j], ErrorMargin))
                         {   
-                            if (this.UneqNumberEqTiming_RemoveRec)
+                            if (this.UneqNumberEqTiming_RemoveRec && !RemoveList.Contains(EDFPlusTriggers[j]))
                                 RemoveList.Add(EDFPlusTriggers[j]);
                         }
                         // different triggernumber, different timing.
@@ -77,7 +77,11 @@ namespace EDFPlusChecker.Engine
                 if (!Found) //it's nowhere to be found, oh no!
                 {
                     if (this.UneqNumberUneqTiming_AddLog)
-                        AddList.Add(new Trigger[] { Map[i], ClosestTrigger(Map[i].OnsetInSeconds, EDFPlusTriggers) });
+                    {
+                        Trigger[] Addition = new Trigger[] { Map[i], ClosestTrigger(Map[i].OnsetInSeconds, EDFPlusTriggers) };
+                        if (!AddList.Contains(Addition))
+                            AddList.Add(Addition);
+                    }
                 } 
             }
 
@@ -114,13 +118,13 @@ namespace EDFPlusChecker.Engine
             if (AddList.Count == 0)
                 Control.Log("None", PrintInConsole);
             for (int i = 0; i < AddList.Count; i++)
-                Control.Log(i+1 + ": Log. " + AddList[i][0].ToString() + Environment.NewLine + "\t closest trigger in recording: [Rec. " + AddList[i][1].ToString() + "]\tdiff: " + String.Format("{0:0.000}", Math.Round(Math.Abs(AddList[i][1].ApproximateOnsetInSeconds - AddList[i][0].ApproximateOnsetInSeconds), 3)) + "s", PrintInConsole);
+                Control.Log(i+1 + ":\t Log. " + AddList[i][0].ToString() + "\t closest trigger in recording: [Rec. " + AddList[i][1].ToString() + "]\tdiff: " + String.Format("{0:0.000}", Math.Round(Math.Abs(AddList[i][1].ApproximateOnsetInSeconds - AddList[i][0].ApproximateOnsetInSeconds), 3)) + "s", PrintInConsole);
 
             Control.Log(Environment.NewLine + "Rec. Triggers to be Removed: ", PrintInConsole);
             if (RemoveList.Count == 0)
                 Control.Log("None", PrintInConsole);
             for (int i = 0; i < RemoveList.Count; i++)
-                Control.Log(i+1 + ": Rec. " + RemoveList[i].ToString());
+                Control.Log(i+1 + ":\t Rec. " + RemoveList[i].ToString());
 
             Control.Log(Environment.NewLine, PrintInConsole);
 

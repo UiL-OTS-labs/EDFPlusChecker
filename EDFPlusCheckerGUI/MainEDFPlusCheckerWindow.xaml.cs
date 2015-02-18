@@ -77,6 +77,8 @@ namespace EDFPlusChecker.GraphicalUserInterface
             StartButton.IsEnabled = false;
             LogButton.IsEnabled = true;
             CancelButton.Visibility = System.Windows.Visibility.Hidden;
+            Mouse.OverrideCursor = null;
+
             //RunningIconRotate.Stop();
         }
 
@@ -125,8 +127,9 @@ namespace EDFPlusChecker.GraphicalUserInterface
                 CancelButton.Visibility = System.Windows.Visibility.Visible;
 
                 StatusTextBox.Text = "Running...";
+                
                 PercentageLabel.Content = "0%";
-
+                Mouse.OverrideCursor = Cursors.Wait;
                 //RunningIconRotate.Begin();
                 MyBackGroundWorker.RunWorkerAsync();
             }

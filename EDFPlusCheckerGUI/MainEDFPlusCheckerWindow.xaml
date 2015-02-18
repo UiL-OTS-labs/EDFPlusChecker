@@ -27,42 +27,42 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
-            <Button Margin="5" Padding="5" x:Name="ConfigureButton"  Click="ConfigureButton_Click">
+            <Button Padding="5,0" x:Name="ConfigureButton"  Click="ConfigureButton_Click">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="ConfigurationIcon.png" Width="24" Height="24" />
-                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center">Configure</TextBlock>
+                    <Image Source="ConfigurationIcon.png" Width="48" Height="48" />
+                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Configure</TextBlock>
                 </StackPanel>
             </Button>
-            
-            <Button Margin="5" Padding="5" x:Name="StartButton" IsEnabled="False" Click="StartButton_Click" Grid.Column="1">
+
+            <Button Padding="5,0" x:Name="StartButton" IsEnabled="False" Click="StartButton_Click" Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="StartIcon.png" Width="24" Height="24"/>
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">Start</TextBlock>
+                    <Image Source="StartIcon.png" Width="48" Height="48"/>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">Start</TextBlock>
                   
                 </StackPanel>
             </Button>
-            <Button Margin="5" Padding="5" x:Name="AboutButton" Click="AboutButton_Click" Grid.Column="2">
+            <Button Padding="5,0" x:Name="AboutButton" Click="AboutButton_Click" Grid.Column="2" SnapsToDevicePixels="True">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="InfoIcon.png" Width="24" Height="24"/>
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">About</TextBlock>
+                    <Image Source="InfoIcon.png" Width="48" Height="48"/>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">About</TextBlock>
                 </StackPanel>
             </Button>
-            <Button Margin="5" Padding="5" x:Name="ExitButton" IsCancel="True" Click="ExitButton_Click" Grid.Column="3">
+            <Button Padding="5,0" x:Name="ExitButton" IsCancel="True" Click="ExitButton_Click" Grid.Column="3">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="CancelIcon.png" Width="48" Height="48"/>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">Exit</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Padding="5,0" x:Name="CancelButton" IsCancel="True" Click="CancelButton_Click" Visibility="Hidden" Grid.Column="3">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="CancelIcon.png" Width="24" Height="24"/>
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">Exit</TextBlock>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">Cancel</TextBlock>
                 </StackPanel>
             </Button>
-            <Button Margin="5" Padding="5" x:Name="CancelButton" IsCancel="True" Click="CancelButton_Click" Visibility="Hidden" Grid.Column="3">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="CancelIcon.png" Width="24" Height="24"/>
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">Cancel</TextBlock>
-                </StackPanel>
-            </Button>
-            <Button Margin="5" Padding="5" x:Name="LogButton" IsEnabled="False" Click="LogButton_Click" Grid.Column="4">
+            <Button Padding="5,0" x:Name="LogButton" IsEnabled="False" Click="LogButton_Click" Grid.Column="4">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="OpenLogIcon.png" Width="24" Height="24"/>
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">Open Log</TextBlock>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">Open Log</TextBlock>
                 </StackPanel>
             </Button>
         </Grid>
@@ -70,15 +70,15 @@
         <Grid HorizontalAlignment="Stretch" Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="6*"/>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <Label VerticalAlignment="Center" Content="Status:"/>
             <TextBox VerticalAlignment="Center" x:Name="StatusTextBox" HorizontalAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" IsReadOnly="True" Text="Waiting for configuration..." Grid.Column="1"/>
             <ProgressBar Margin="5,0" VerticalAlignment="Center" x:Name="ProgressBar" Width="200" Height="20" Foreground="#FF0A6A3E" Grid.Column="3"/>
-            <Label VerticalAlignment="Center" HorizontalContentAlignment="Left" x:Name="PercentageLabel" Content="100%" Grid.Column="2"/>
+            <Label VerticalAlignment="Center" HorizontalContentAlignment="Right" x:Name="PercentageLabel" Content="0%" Grid.Column="2"/>
         </Grid>
     </Grid>
 </Window>

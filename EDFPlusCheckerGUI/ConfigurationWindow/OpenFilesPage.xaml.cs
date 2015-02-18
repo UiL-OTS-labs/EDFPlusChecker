@@ -84,6 +84,10 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
             RecordingFilesDialog.ShowDialog();
             string[] FileList = RecordingFilesDialog.FileNames;
             RecordingFilesTextBox.Text = String.Join(Environment.NewLine, FileList);
+
+            this.RecordingFilesTextBox.Focus();
+            this.RecordingFilesTextBox.CaretIndex = this.RecordingFilesTextBox.Text.Length;
+            this.RecordingFilesTextBox.ScrollToEnd();
         }
 
         private void LogFilesButton_Click(object sender, RoutedEventArgs e)
@@ -91,6 +95,10 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
             LogFilesDialog.ShowDialog();
             string[] FileList = LogFilesDialog.FileNames;
             LogFilesTextBox.Text = String.Join(Environment.NewLine, FileList);
+
+            this.LogFilesTextBox.Focus();
+            this.LogFilesTextBox.CaretIndex = this.RecordingFilesTextBox.Text.Length;
+            this.LogFilesTextBox.ScrollToEnd();
         }
     }
 }

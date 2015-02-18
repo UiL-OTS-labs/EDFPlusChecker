@@ -37,6 +37,8 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
             ApplicationLogPathDialog.Filter = "Log files (*.log)|*.log|All files (*.*)|*.*";
 
             OutputDirectoryPathDialog = new FolderBrowserDialog();
+
+            SaveModifiedFilesCheckbox.IsChecked = false;
         }
 
         public override bool ConfigureEngine(out string possibleErrorMessage)
@@ -52,6 +54,8 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
                 {
                     Engine.AddAction(new ActionResolveTriggerDifferences(Engine, Engine.ErrorMargin, true, true));
                     string SavePath = OutputDirectoryTextBox.Text;
+                    SavePath = (SavePath == "") ? Directory.GetCurrentDirectory() : SavePath;
+                    
                     string Prefix = NewFilesPrefixTextBox.Text;
                     Engine.AddAction(new ActionSaveEDFFile(Engine, SavePath, Prefix));
                 }
@@ -81,8 +85,6 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
 
         private void SaveFilesPage_Loaded(object sender, RoutedEventArgs e)
         {
-            SaveModifiedFilesCheckbox.IsChecked = false;
-            
             OutputDirectoryTextBox.Text = OutputDirectoryPathDialog.SelectedPath;
         }
 

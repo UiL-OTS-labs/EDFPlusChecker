@@ -75,7 +75,7 @@
                 
                 <Label Content="Specific integers to ignore (delimitor = ';'):" HorizontalAlignment="Left" Grid.Column="5"/>
                 <Button Content="?" Width="25" VerticalAlignment="Top" Click="LogFileTriggerRangeInformationButton_Click" Height="25" Grid.Column="5"  HorizontalAlignment="Right"/>
-                <TextBox x:Name="TriggersToIgnoreTextBox" HorizontalAlignment="Stretch" TextWrapping="Wrap" Margin="10,0,30,0" Grid.Row="1" Grid.Column="5"/>
+                <TextBox VerticalContentAlignment="Center" x:Name="TriggersToIgnoreTextBox" HorizontalAlignment="Stretch" TextWrapping="Wrap" Margin="10,0,30,0" Grid.Row="1" Grid.Column="5"/>
             </Grid>
         </GroupBox>
 
