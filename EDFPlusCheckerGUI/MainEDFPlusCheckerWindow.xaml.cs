@@ -71,7 +71,7 @@ namespace EDFPlusChecker.GraphicalUserInterface
             else
             {
                 StatusTextBox.Text = "An error has occured! The background worker has crashed!";
-                throw new Exception("The background worker has crashed!", e.Error);
+                throw new Exception("The background worker has crashed!", e.Error.InnerException);
             }
             ExitButton.IsEnabled = true;
             StartButton.IsEnabled = false;

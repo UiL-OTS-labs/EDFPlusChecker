@@ -35,6 +35,7 @@ namespace EDFPlusChecker
         public int[] TriggerNumbersToIgnore = new int[0];
         public int TriggerNumberLowerLimit = 0;
         public int TriggerNumberUpperLimit = 9999;
+        public bool CorrectForPauses;
 
         private StreamWriter ApplicationLogFile;
 

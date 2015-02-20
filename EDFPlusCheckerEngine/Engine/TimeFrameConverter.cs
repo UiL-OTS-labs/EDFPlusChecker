@@ -12,6 +12,9 @@ namespace EDFPlusChecker.Engine
         public Controller Control;
 
         private double[,] TimeStamps;
+        private int[,] NumberStamps;
+
+        public int NumberOfTries;
 
         //EEGtime_missing_marker = ( (Prestime_missing_marker - PresentationFirst) * (AnalyzerLast- AnalyzerFirst) / (PresentationLast - PresentationFirst) ) + AnalyzerFirst
         public bool TimeConvertTriggers(Trigger[] mapFrom, out Trigger[] mapToo)
@@ -32,21 +35,24 @@ namespace EDFPlusChecker.Engine
             return true;
         }
 
-        public string ToString()
+        public override string ToString()
         {
             StringBuilder Description = new StringBuilder();
-            Description.Append("Time Conversion Target:\t");
-            Description.AppendLine(Math.Round(TimeStamps[0, 0], 3) + "s and " + Math.Round(TimeStamps[0, 1], 3) + "s");
-            Description.Append("Time Conversion Source:\t");
-            Description.AppendLine(Math.Round(TimeStamps[1, 0], 3) + "s and " + Math.Round(TimeStamps[1, 1], 3) + "s");
+            Description.Append("Time Conversion Logged File:\t");
+            Description.AppendLine(String.Format("{0:0.000}s ({1}) and {2:0.000}s ({3})", TimeStamps[0, 0], NumberStamps[0, 0], TimeStamps[0, 1], NumberStamps[0, 1]));
+            Description.Append("Time Conversion Recording File:\t");
+            Description.AppendLine(String.Format("{0:0.000}s ({1}) and {2:0.000}s ({3})", TimeStamps[1, 0], NumberStamps[1, 0], TimeStamps[1, 1], NumberStamps[1, 1]));
+            Description.AppendLine("Number of attempts: " + this.NumberOfTries);
             return Description.ToString();
         }
 
         public bool FindTimeConversion(Trigger[] mapFrom, Trigger[] mapToo, int verificationWindowSize, double errorMargin)
         {
             double[,] TempTimeStamps = new double[2, 2];
-
+            int[,] TempNumberStamps = new int[2, 2];
             bool TimeConversionFound = false;
+
+            this.NumberOfTries = 1;
 
             //Initiate search starting from the tops.
             for (int i = 0; i < mapToo.Length; i++)
@@ -63,14 +69,24 @@ namespace EDFPlusChecker.Engine
                                 {
                                     TempTimeStamps[0, 0] = mapFrom[j].ApproximateOnsetInSeconds;
                                     TempTimeStamps[0, 1] = mapFrom[b].ApproximateOnsetInSeconds;
+
+                                    TempNumberStamps[0, 0] = mapFrom[j].TriggerNumber;
+                                    TempNumberStamps[0, 1] = mapFrom[b].TriggerNumber;
+
                                     TempTimeStamps[1, 0] = mapToo[i].ApproximateOnsetInSeconds;
                                     TempTimeStamps[1, 1] = mapToo[a].ApproximateOnsetInSeconds;
+
+                                    TempNumberStamps[1, 0] = mapFrom[i].TriggerNumber;
+                                    TempNumberStamps[1, 1] = mapFrom[a].TriggerNumber;
 
                                     if (FindVerificationWindow(mapFrom, mapToo, verificationWindowSize, errorMargin, TempTimeStamps))
                                     {
                                         this.TimeStamps = TempTimeStamps;
+                                        this.NumberStamps = TempNumberStamps;
                                         return true;
                                     }
+                                    else
+                                        this.NumberOfTries++;
                                 }
                             }
                         }

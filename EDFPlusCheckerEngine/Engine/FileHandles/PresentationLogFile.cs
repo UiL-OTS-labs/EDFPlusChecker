@@ -26,7 +26,7 @@ namespace EDFPlusChecker.Engine
             get {
                 if(_Triggers == null)
                 {
-                    _Triggers = GetTriggers(Owner.TriggerNumbersToIgnore, Owner.TriggerNumberLowerLimit, Owner.TriggerNumberUpperLimit);
+                    _Triggers = GetTriggers(Owner.TriggerNumbersToIgnore, Owner.TriggerNumberLowerLimit, Owner.TriggerNumberUpperLimit, Owner.CorrectForPauses);
                 }
                 return _Triggers;
             } 
@@ -39,20 +39,38 @@ namespace EDFPlusChecker.Engine
             return Data[IndexOfColumn].ToArray<string>();
         }
 
-        private Trigger[] GetTriggers( int[] triggersToIgnore, int lowerTriggerLimit, int upperTriggerLimit)
+        private Trigger[] GetTriggers( int[] triggersToIgnore, int lowerTriggerLimit, int upperTriggerLimit, bool CorrectForPauses = true)
         {
            string[] CodeColumn = GetDataColumn("Code");
            string[] TimingColumn = GetDataColumn("Time");
            string[] UncertaintyColumn = GetDataColumn("Uncertainty");
-           
+            string[] EventTypeColumn = new string[0];
+            string[] DurationColumn = new string[0];
+
+           if (CorrectForPauses)
+           {
+               EventTypeColumn = GetDataColumn("Event Type");
+               DurationColumn = GetDataColumn("Duration");
+           }
+
            if(CodeColumn.Length != TimingColumn.Length || TimingColumn.Length != UncertaintyColumn.Length)
                 throw new ActionCannotDoWhatDoBeDo("Something fishy going on with the length of the columns in the Presentation file " + this.FileName);
 
            List<Trigger> Result = new List<Trigger>(CodeColumn.Length);
+           int PauseOffset = 0;
 
            for (int i = 0; i < CodeColumn.Length; i++)
            {
                int TriggerNumber = -1;
+
+               if (CorrectForPauses && EventTypeColumn[i] == "Pause")
+               {
+                   int PauseDuration;
+                   if (!int.TryParse(DurationColumn[i], out PauseDuration))
+                       throw new ActionCannotDoWhatDoBeDo("Something fishy going on with PresentationLog Event Type of Duration column");
+                   PauseOffset += PauseDuration;
+               }
+
                if (int.TryParse(CodeColumn[i], out TriggerNumber) && TriggerNumber <= upperTriggerLimit && TriggerNumber >= lowerTriggerLimit && !triggersToIgnore.Contains(TriggerNumber))
                {
                    int OnsetTimeOneTenth = -9999;
@@ -61,7 +79,7 @@ namespace EDFPlusChecker.Engine
                    if (!int.TryParse(TimingColumn[i], out OnsetTimeOneTenth) || !int.TryParse(UncertaintyColumn[i], out UncertaintyOneTenth))
                        throw new ActionCannotDoWhatDoBeDo("Something fishy going on with PresentationLog OnsetTime (TIME column)");
 
-                   double OnsetTime = ((double) OnsetTimeOneTenth)/10000;
+                   double OnsetTime = ((double)OnsetTimeOneTenth + PauseOffset) / 10000;
                    double Uncertainty = ((double) UncertaintyOneTenth)/10000;
                    Result.Add(new Trigger(OnsetTime, Uncertainty, TriggerNumber));
                }

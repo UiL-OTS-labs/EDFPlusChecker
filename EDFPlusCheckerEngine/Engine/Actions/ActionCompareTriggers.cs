@@ -55,7 +55,7 @@ namespace EDFPlusChecker.Engine
                         // same triggernumber, unequal timing.
                         else
                         {
-                            if (this.EqNumberUneqTiming_RemoveRec && !RemoveList.Contains(EDFPlusTriggers[j]))
+                            if (this.EqNumberUneqTiming_RemoveRec && !RemoveList2.Contains(EDFPlusTriggers[j])&&!RemoveList.Contains(EDFPlusTriggers[j]))
                                 RemoveList2.Add(EDFPlusTriggers[j]);
                         }
                     }
@@ -64,7 +64,7 @@ namespace EDFPlusChecker.Engine
                         // different triggernumber, equal timing.
                         if (Map[i].SameTiming(EDFPlusTriggers[j], ErrorMargin))
                         {   
-                            if (this.UneqNumberEqTiming_RemoveRec && !RemoveList.Contains(EDFPlusTriggers[j]))
+                            if (this.UneqNumberEqTiming_RemoveRec && !RemoveList.Contains(EDFPlusTriggers[j]) && !RemoveList2.Contains(EDFPlusTriggers[j]))
                                 RemoveList.Add(EDFPlusTriggers[j]);
                         }
                         // different triggernumber, different timing.
@@ -135,6 +135,11 @@ namespace EDFPlusChecker.Engine
 
 
             Control.Log(Environment.NewLine, PrintInConsole);
+
+            foreach (Trigger trig in RemoveList2)
+            {
+                RemoveList.Add(trig);
+            }            
 
             //fill control variable with the differences
             Control.DifferenceBetweenFiles = new DifferenceFile(AddList, RemoveList);         

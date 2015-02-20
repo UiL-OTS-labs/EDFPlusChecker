@@ -69,6 +69,7 @@ namespace EDFPlusChecker.GraphicalUserInterface.ConfigurationWindow
                     Engine.TriggerNumberLowerLimit = TriggerLowerLimit;
                     Engine.TriggerNumberUpperLimit = TriggerUpperLimit;
                     Engine.TriggerNumbersToIgnore = IgnoreTriggers_int;
+                    Engine.CorrectForPauses = CorrectForPausesCheckbox.IsChecked == true;
                 }
                 
             }

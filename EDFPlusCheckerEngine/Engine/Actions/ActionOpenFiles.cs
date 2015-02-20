@@ -39,11 +39,12 @@ namespace EDFPlusChecker.Engine
                     Control.EDFPlusHandle.ReadTALsToMemory();
             }
             else
-                throw new ActionCannotDoWhatDoBeDo("Couldn't find file: " + @EDFFileName); 
+                throw new ActionCannotDoWhatDoBeDo("Couldn't find or access file: " + @EDFFileName); 
 
             if (File.Exists(@PresentationLogFilename))
                 Control.PresentationLogHandle = new PresentationLogFile(this.Control, @PresentationLogFilename);
-              
+            else
+                throw new ActionCannotDoWhatDoBeDo("Couldn't find or access file: " + @PresentationLogFilename); 
             Active = false;
             
             string Description = "Action: Opened File(s): ";

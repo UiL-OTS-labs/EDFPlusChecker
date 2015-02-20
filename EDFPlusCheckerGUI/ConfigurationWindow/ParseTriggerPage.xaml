@@ -80,8 +80,13 @@
         </GroupBox>
 
         <GroupBox Header="Log File (Presentation)" Grid.Row="4" FontSize="12" Margin="5" Padding="5">
-            <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Presentation-Log event codes are ignored if they do not parse into integers. "/>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" >
+                <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Presentation-Log event codes are ignored if they do not parse into integers. "/>
+                <CheckBox Margin="5" x:Name="CorrectForPausesCheckbox" Content="Correct for Pauses in trigger onsets." HorizontalAlignment="Center" IsChecked="True"/>
+            </StackPanel>
+            
         </GroupBox>
+        
     </Grid>
 </src:ConfigurationPageBase>
   
