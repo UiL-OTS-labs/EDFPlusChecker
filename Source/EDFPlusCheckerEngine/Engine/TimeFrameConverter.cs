@@ -68,16 +68,16 @@ namespace EDFPlusChecker.Engine
                                 if (mapToo[a].TriggerNumber == mapFrom[b].TriggerNumber)
                                 {
                                     TempTimeStamps[0, 0] = mapFrom[j].ApproximateOnsetInSeconds;
-                                    TempTimeStamps[0, 1] = mapFrom[b].ApproximateOnsetInSeconds;
-
-                                    TempNumberStamps[0, 0] = mapFrom[j].TriggerNumber;
-                                    TempNumberStamps[0, 1] = mapFrom[b].TriggerNumber;
-
                                     TempTimeStamps[1, 0] = mapToo[i].ApproximateOnsetInSeconds;
+
+                                    TempTimeStamps[0, 1] = mapFrom[b].ApproximateOnsetInSeconds;
                                     TempTimeStamps[1, 1] = mapToo[a].ApproximateOnsetInSeconds;
 
-                                    TempNumberStamps[1, 0] = mapFrom[i].TriggerNumber;
-                                    TempNumberStamps[1, 1] = mapFrom[a].TriggerNumber;
+                                    TempNumberStamps[0, 0] = mapFrom[j].TriggerNumber;
+                                    TempNumberStamps[1, 0] = mapToo[i].TriggerNumber;
+
+                                    TempNumberStamps[0, 1] = mapFrom[b].TriggerNumber;
+                                    TempNumberStamps[1, 1] = mapToo[a].TriggerNumber;
 
                                     if (FindVerificationWindow(mapFrom, mapToo, verificationWindowSize, errorMargin, TempTimeStamps))
                                     {
@@ -85,8 +85,13 @@ namespace EDFPlusChecker.Engine
                                         this.NumberStamps = TempNumberStamps;
                                         return true;
                                     }
-                                    else
+                                    else 
+                                    {
                                         this.NumberOfTries++;
+                                        if (NumberOfTries > 1000)
+                                            throw new Exception("More then a thousand attempts have been made to establish a time conversion. Check the trigger numbers and/or order.");
+                                    }
+                                       
                                 }
                             }
                         }

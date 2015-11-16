@@ -1,0 +1,3 @@
+Since they are very small excerpts you need to set the verification window for the time conversion extremly low. I suggest 1 instead of 9 triggers wide.
+
+Cheers!
